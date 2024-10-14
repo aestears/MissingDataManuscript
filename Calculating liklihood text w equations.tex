@@ -1,0 +1,164 @@
+
+
+documentclass{article}
+\usepackage[utf8]{inputenc}
+
+
+
+\usepackage{geometry}                		
+\geometry {letterpaper, left=2.5 cm, right=2.5 cm, top=2.5cm, bottom=2.5 cm}    
+
+
+\usepackage{graphicx}		
+\graphicspath{ {c:} }
+\usepackage{setspace}
+\usepackage[version=4]{mhchem}
+\doublespace
+\usepackage{siunitx}
+\usepackage{natbib}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{lineno}
+\usepackage[sharp]{easylist}%makes nice outlines.  Use # for symbol
+\begin{document}
+\maketitle
+
+
+\subsection*{Direct calculation of the likelihood for an AR(1) model with missing observations}
+
+Consider the basic AR(1) model
+\begin{equation*}
+  \begin{split}
+      Y_t = \phi Y_{t-1} + \epsilon_t\\
+      \epsilon_1,\epsilon_2,...,\epsilon_T \overset{iid}{\sim} \mathcal{N}(0, \sigma^2).
+  \end{split}
+\end{equation*}
+
+The likelihood can be calculated recursively, being careful to include the correct mean and variance for $Y_0$. Because the errors are Gaussian, so are the observations, and, from the Yule-Walker equations (see below), we know that $Y_0$ has marginal expectation $\mathbb{E}(Y_0) = 0$ and marginal variance $\text{Var}(Y_0) = \frac{\sigma^2}{1 - \phi^2}$. Thus, the likelihood for the first observation in the series is 
+\begin{equation*}
+    \mathcal{L}(\phi, \sigma^2 | y_0) = f_{Y_0}(y_0 | \phi, \sigma^2) =  \frac{1}{\sqrt{2\pi \sigma^2/(1 - \phi^2) }} \exp\left\{-\frac{1}{2\sigma^2/(1-\phi^2)}y_0^2 \right\}
+\end{equation*}
+where $f_{Y_0}(y_0)$ is the density function for $Y_0$ (in this case the normal density). Conditional on $Y_0 = y_0$, 
+\begin{equation*}
+    f_{Y_1|Y_0}(y_1 | y_0, \phi, \sigma^2) = \frac{1}{\sqrt{2\pi}\sigma} \exp \left\{- \frac{1}{2\sigma^2}(y_1 - y_0)^2\right\},
+\end{equation*}
+and, by the properties of density functions, the joint density of $(Y_0, Y_1)$ is given by
+\begin{equation*}
+    f_{Y_0,Y_1}(y_0,y_1|\phi, \sigma^2) = f_{Y_1|Y_0}(y_1|y_0, \phi, \sigma^2) f_{Y_0}(y_0|\phi, \sigma^2).
+\end{equation*}
+This provides a clear, recursive form for the joint likelihood. Let ${\bf y}^\top = (y_0, y_1, ..., y_T)$, then the joint likelihood for $(\phi, \sigma^2)$ is given by
+\begin{equation*}
+    \mathcal{L}(\phi, \sigma^2| {\bf y}) = f_{Y_0}(y_0) \prod_{t = 1}^T f_{Y_{t}|Y_{t-1}}(y_t|y_{t-1}).
+\end{equation*}
+This recursive calculation of the likelihood can still be carried out in the presence of missing data by conditioning the next \textit{observed} value on the previous \textit{observed} value and computing the appropriate mean and variance of the conditional distribution. For example, assume an observation from time-step $k$ is missing from the dataset. We can still compute the the expected value of $Y_{k+1}$ given the last observed value $Y_{k-1} = y_{k-1}$. This is given by
+\begin{equation*}
+  \begin{aligned}
+      \mathbb{E}(Y_{k+1}| Y_{k-1} &= y_{k-1}) = \mathbb{E}(\phi(\phi y_{k-1} + \epsilon_{k}) + \epsilon_{k+1})\\
+      &= \mathbb{E}(\phi^2 y_{k-1} + \phi\epsilon_{k} + \epsilon_{k+1})\\
+      &= \phi^2 y_{k-1}
+  \end{aligned}
+\end{equation*}
+and the variance by
+\begin{equation*}
+  \begin{aligned}
+    \text{Var}(Y_{k+1}| Y_{k-1} &= y_{k-1}) = \text{Var}(\phi(\phi y_{k-1} + \epsilon_{k}) + \epsilon_{k+1})\\
+      &= \text{Var}(\phi^2 y_{k-1} + \phi\epsilon_{k} + \epsilon_{k+1})\\
+      &= \phi^2\sigma^2 + \sigma^2\\
+      &=\sigma^2(1 + \phi^2).
+  \end{aligned}
+\end{equation*}
+Thus, the joint likelihood for the data that were observed, ${\bf y}_{(-1)}$, is 
+\begin{equation*}
+    \mathcal{L}(\phi, \sigma^2 | {\bf y}_{(-1)}) = f_{Y_0}(y_0)\left[ \prod_{t=1}^{k-1} f_{Y_t|Y_{t-1}}(y_t|y_{t-1})\right]f_{Y_{k+1}|Y_{k-1}}(y_{k+1}|y_{k-1}) \prod_{t=k+2}^T f_{Y_t|Y_{t-1}}(y_t|y_{t-1})
+\end{equation*}
+where $f_{Y_{k+1}|Y_{k-1}}(y_{k+1}|y_{k-1})$ is a normal distribution with mean $\phi^2 y_{k-1}$ and variance $\sigma^2(1 + \phi^2)$. Thus, maximizing the likelihood (or minimizing the negative log-likelihood) with respect to $(\phi, \sigma^2)$ can be done using standard non-linear optimization routines to obtain MLE's.
+
+By mathematical induction we can obtain the expected value and variance of an observation at any time-step in the future, allowing us to extend the above reasoning to larger gaps in time. Let $y_{t+j}$ and $y_t$ be observed values with a gap of size $j - 1 \ge 1$ between them. Mathematical induction yields that $\mathbb{E}(Y_{t+j} | Y_t = y_t) = \phi^j y_t$ and $\text{Var}(Y_{t+j}|Y_t = y_t) = (\sum_{i=1}^j \phi^{2(i-1)})\sigma^2$. Thus, as the gap size increases,
+\begin{subequations}
+    \begin{equation*}
+        \mathbb{E}(Y_{t+j}|y_t) = \phi^j y_t \to 0 \text{ as } j \to \infty
+    \end{equation*}
+    \begin{equation*}
+        \text{Var}(Y_{t+j}|y_t) = (\sum_{i=0}^{j-1} \phi^{2i})\sigma^2 \to \frac{\sigma^2}{1 - \phi^2} \text{ as } j \to \infty
+    \end{equation*}
+\end{subequations}
+indicating that, intuitively, we no longer have information on $Y_{t+j}$ based on $Y_t = y_t$ and it is as if we are starting the series over again.
+
+These ideas are generalized to ARMA($p$, $q$) models in Jones (1980).
+
+
+%%%%%%%%%%%%%%%%%%%
+
+\subsection*{Notes on Yule-Walker equations and bias from violating equal time-step assumptions}
+
+\subsubsection*{Yule-Walker equations}
+
+Suppose we have an AR(1) process defined by
+\begin{equation*}
+    Y_t = \phi Y_{t-1} + \epsilon_t
+\end{equation*}
+with the AR coefficient $\phi$ and random innovations $\epsilon_1, ..., \epsilon_t \overset{iid}{\sim} \mathcal{N}(0, \sigma_\epsilon^2)$. Without loss of generality, we assume $\mathbb{E}(Y_t) = 0$ (since we can always center the process on zero by subtracting the mean) and that $0 < \phi < 1$, such that we have week stationarity (equal mean and variance through time).
+
+To derive the autocovariance through time, we can multiply both sides by $Y_{t-j}$, where $j \in \{0,1,2,...,t\}$ is the lag at which we want to fine the autocovariance, then take the expectation. For example,
+\begin{equation*}
+    \begin{aligned}
+        \mathbb{E}(Y_{t-1}Y_t) &= \mathbb{E}(Y_{t-1}Y_{t-1} \phi + Y_{t-1}\epsilon_t)\\
+        \gamma_1 &= \gamma_0 \phi + 0
+    \end{aligned}
+\end{equation*}
+where $\gamma_j$ is the autocovariance at a lag of size $j$. Dividing both sides by $\gamma_0$, we get that $\gamma_1/\gamma_0 = \rho_1 = \phi$, so the correlation at lag order 1 is $\phi$. To solve, for $\gamma_0$, the process-level variance, multiply both sides by $Y_t$ to get
+\begin{equation*}
+  \begin{aligned}
+    \mathbb{E}(Y_t Y_t) &= \mathbb{E}(Y_t Y_{t-1} \phi + Y_t \epsilon_t)\\
+    \gamma_0 &= \gamma_1 \phi + \sigma_\epsilon^2\\
+    \gamma_0 &= (\gamma_0\phi)\phi + \sigma_\epsilon^2\\
+    \gamma_0(1 - \phi^2) &= \sigma_\epsilon^2\\
+    \gamma_0 &= \frac{\sigma_\epsilon^2}{1 - \phi^2}
+  \end{aligned}
+\end{equation*}
+showing that the process-level variance, $\text{Var}(Y_t) = \sigma_\epsilon^2/(1 - \phi^2)$, is not equal to the variance of the random innovations. One can now use the expressions for $\gamma_0$ and $\gamma_1$ to derive the autocorrelation at any lag by recursively solving the equations at higher and higher lag orders.
+
+
+\subsubsection*{Bias from missing data}
+
+It is well known that we can estimate $\phi$ in an AR(1) model using a regression approach, regressing the current observation on the previous. Let ${\bf y}_{(+)} = (y_1, y_2, ..., y_n)^\top$ be the response vector in a time series regression model with $n$ time points and ${\bf y}_{(-)} = (y_0, y_1, ..., y_{n-1})^\top$ be the vector of observations at a lag of one. The OLS estimator for $\phi$, $\hat \phi$, is
+\begin{equation*}
+  \begin{aligned}
+      \hat \phi &= ({\bf y}_{(-)}^\top {\bf y}_{(-)})^{-1}{\bf y}_{(-)}^\top {\bf y}_{(+)}\\
+      &= \frac{\sum_{t=1}^n y_{t-1} y_t}{\sum_{t=1}^n y_{t-1}^2}.
+  \end{aligned}
+\end{equation*}
+This estimator is approximately unbiased (if we ignore covariances):
+\begin{equation*}
+    \begin{aligned}
+        \mathbb{E}(\hat \phi) &= \mathbb{E}\left(\frac{\sum_{t=1}^n Y_{t-1} Y_t}{\sum_{t=1}^n Y_{t-1}^2}\right)\\
+        &\approx \frac{\mathbb{E}\left(\sum_{t=1}^n Y_{t-1} Y_t \right)}{\mathbb{E}\left( 
+        \sum_{t=1}^n Y_{t-1}^2\right)}\\
+        &\approx \frac{\sum_{t=1}^n \mathbb{E}(Y_{t-1} Y_t)}{ 
+        \sum_{t=1}^{n-1} \mathbb{E}(Y_{t-1}^2)}\\
+        &\approx \frac{n \gamma_1}{n \gamma_0} = \phi
+    \end{aligned}
+\end{equation*}
+However, additional bias is introduced into the same approximation when we delete an observation but proceed as if it were not missing. Let $y_k$ be missing, but we still assume that
+\begin{equation*}
+    y_{k+1} = y_{k-1}\phi + \epsilon_{k+1}
+\end{equation*}
+(i.e., we skip over the missing data). Then 
+\begin{equation*}
+    \begin{aligned}
+        \mathbb{E}(\hat \phi_{-1}) &\approx \frac{\mathbb{E}(\sum_{t=1}^{k-1}Y_{t-1}Y_{t} + Y_{k-1}Y_{k+1} + \sum_{t=k+2}^{n} Y_{t-1}Y_t) }{\mathbb{E}(\sum_{t=1}^{k}Y_{t-1}^2 + \sum_{t = k + 2}^n Y_{t-1}^2)}\\
+        &\approx \frac{(k - 1) \gamma_1 + \gamma_2 + (n - k - 2 + 1)\gamma_1}{n\gamma_0}\\
+        &\approx \phi\left(\frac{n-2}{n - 1} + \frac{\phi}{n - 1} \right).
+    \end{aligned}
+\end{equation*}
+By mathematical induction, increasing the number of missing data points (but always at a lag of 1 such that no two consecutive observations are missing and never the first or last observations in the series) to an arbitrary $m < n/2$ yields the approximation
+\begin{equation*}
+    \mathbb{E}(\hat \phi_{-m}) \approx \phi \left(\frac{n - 2m}{n - m} + \frac{m\phi^2}{n - m} \right)
+\end{equation*}
+where $m$ is the number of missing observations. It is easy to prove that the additional bias factor, $(n - 2m)/(n - m) + m\phi^2/(n - m)$, is less than one for $-1 < \phi < 1$. Thus, the approximation to the expected value of the OLS estimator has an additional bias factor that depends on the sample size, the number of missing data points, and $\phi$, and biases the estimator downward in magnitude (i.e., closer to zero) for stationary AR(1) time series. However, as the length of the time series gets long, $\mathbb{E}(\hat \phi_{-m}) \to \mathbb{E}(\hat \phi) \to \phi$, so deleting one or a few observations from a time series may have little effect on the estimate as long as the ratio of missing data to the length of the series is $<< 1$.
+
+
+
+
+
+\end{document}

@@ -1,0 +1,66 @@
+
+ 
+ 
+ 
+ However, the imputation methods vary greatly in their ability to account for the uncertainty imposed with the imputation. There are many options for data imputation, which range in complexity and the ability of the method to account for uncertainty imposed by missing data imputation. Ignoring data gaps and single imputation (e.g., with a central tendency or interpolation) are common approaches in ecology, but they introduce bias and do not account for missing data uncertainty \citep{nakagawa_missing_2008, graham_missing_2009}. These approaches create unrealistically narrow standard errors \citep{nakagawa_missing_2015,mcknight_missing_2007} and introduce bias to parameter estimates if there is a non-random pattern to missingness. Furthermore, ignoring missing data is not feasible when considering auto-correlation in models where a complete data set is necessary. 
+
+
+ \section*{Graveyard of orphaned text} %so sad
+A common theme among missing data research is the idea that using list-wise deletion to ignore the issue of missing data is never a safe practice. Ignoring missing data will almost certainly impart bias on any statistical analyses by reducing the statistical power. [EXAMPLE OF HOW DELETING DATA AFFECTS INTERPRETATION OF RESULTS]. It is nearly always better to impute missing data points than to ignore them completely. However, imputation alone is only safe when the missing data mechanism is ignorable.  
+
+
+
+Missing data are so prevalent that an entire sub-field of science is devoted to studying the issue. \cite{rubin_inference_1976} and colleagues developed much of the initial theory and operational definitions for missing data research. These definitions include classifying missing data into categories based on the missing data mechanism, which are based in probability theory and represent the statistical relationship between observations and the probability of missing data \citep{rubin_inference_1976}. When the missing data mechanism is controlled by chance (missing at random, MAR), or by a mechanism known to the researcher (missing completely at random, MCAR), the missingness mechanism can be ignored, which allows for imputing missing data with minimal bias \citep{little_statistical_2002, nakagawa_missing_2015}. Alternatively, when the missing data mechanism is unknown but may in fact have a relationship with present and missing observations (missing not at random; MNAR), the missing data mechanism must be built into the model, leading to a more complex imputation process. 
+
+
+ MI has been used fairly commonly in ecology, with multiple studies evaluating methods and approaches to conduct MI for functional traits \citep{taugourdeau_filling_2014,johnson_handling_2021,penone_imputation_2014}, population biology \citep{onkelinx_working_2017}, time-series \citep{hui_gap-filling_2004}, and meta-analyses \citep{ellington_using_2015}. 
+
+
+There are a myriad of approaches to account for auto-correlation in ecological models \cite{hefley_basis_2017, borcard_partialling_1992, padilla_space-time_2020}, yet approaches methods papers highlighting approaches to impute missing data generally do not consider the uncertainty imposed with imputation; rather there is a focus on recovering known data \cite{penone_imputation_2014, johnson_handling_2021, ellington_using_2015}.
+
+
+
+Multiple imputation and data augmentation are two approaches for missing data imputation that can account for missing data uncertainty and introduce less bias than other common approaches in ecology, such as ignoring data gaps or single imputation \citep{nakagawa_missing_2008, graham_missing_2009}.
+
+\section*{Outline of sections}
+\subsection*{Comparing parameter estimates between Bayesian and Multiple Imputations}
+
+\begin{itemize}
+\item Simulate time-series data and test the how MI and DA fare at estimating different parameters
+% use more than one time series process (AR, MA).  Probably should be only state space, since I see no reason not to use state space with ecological time series.
+\begin{itemize}
+
+\item TO RESOLVE: 1) How many different simulated datasets and which ones? How many are enough to make a point? %1 each pop and GPP plus simulated data
+
+2) How many imputation datasets \textit{m} should I use? Maybe test small and large? Will need to send model to server farm to do larger ones..Could be interesting context for the paper (i.e., sure \textit{m}=200 works well but it takes forever).  %no idea
+\end{itemize}
+\item Test if MI is better than DA in terms of MI can include ALL variables, while DA can only use data in the model. This is widely seen as one of the only pitfalls of DA. %Yes, if missing X variables, MI seems better unless one build a model first to use V variables to predict other x variables.  But that only works when there are say >4 x variables.  But you are leaving the time series world in this case, we don't often have lots of x variables unless we are talking about climate, and they are usually not missing than to Prism.
+\end{itemize}
+
+
+
+
+ Different approaches to estimate missing data that account for the uncertainty of estimates:
+Data Augmentation
+  \begin{itemize}
+ \item \cite{clark_hierarchical_2005} Bayesian approach for mark-recapture and life-history prediction. Not very accessible-but a solid example.
+ \item \cite{worrall_dissolved_2020} They estimate missing DOC concentration and Q data from a broad sampling program at many sites across the UK (similar to the US USGS sampling program). They seem to estimate ALL data points using a GLM based on site, month, and year and known DOC concentration and Q data in a Bayesian hierarchical model. 
+\item \cite{colchero_basta_2012} Use Bayesian approach to estimate missing birth and death data for mark-recapture calculations. They created R code package for this. There isn't a ton of information that would be helpful for estimating missing data, but it is a solid example. 
+ \item \cite{ma_bayesian_2018}: Summarize approaches to estimate missing data with Bayesian approaches including ignorable and non-ignorable settings. Very dense. A lot of equations. Not very accessible. 
+\item \cite{kong_sequential_1994}: Early paper highlighting the method. Very dated.
+\item \cite{bertschinger_bayesian_2021}: Economics focused. Only paper I have seen to use Stan Bayesian parameter estimation for missing data in a time series. They have a much more complicated missing data code. 
+\item \cite{chatzilena_contemporary_2019}: Uses Stan Bayesian parameter estimation for missing data estimate that are discrete. Not time-series. "Marginalize out the missing discrete data".
+\item \cite{scutari_bayesian_2019}: Possibly helpful summary of Bayesian approach. Specifically B network analysis. Very dense though. Hard to sift through.
+\item \cite{jackman_estimation_2000} Provide a solid explanation of Bayesian approaches for estimating missing data presented in the context of political science data examples.
+   \end{itemize}
+
+% Text from the old version of the introduction:
+In addition, if data are autocorrelated, as is true in many time series, using a statistic of the entire dataset as a replacement for missing values ignores the greater influence that nearest neighbor values may have, or the influence of missing values on subsequent time-steps.
+
+The MI approach is widely accepted among researchers in various fields (e.g., \citep{van2018flexible, nakagawa_missing_2015}) because it has minimal bias, is robust to normality assumptions, accommodates small sample sizes and a high proportion of missing data, and leads to valid statistical inference compared to other methods \citep{kang2013prevention, tran2017missing, van2006imputation}. Further, it is devoid of excessively optimistic standard error that is typical of other imputation methods, e.g. maximum likelihood estimates \citep{van2018flexible, newman_missing_2014}. However, Ellington et al. (\citeyear{ellington_using_2015}) show that while MI was robust to the type of data missingness (MAR, MCAR, MNAR), accuracy declined when the raw data used to compute the effect size (e.g., mean population density) and weighting parameters (e.g., standard error of population density) were missing. Since this study did not examine auto-regressive data, it is uncertain if the effects of missingness  might be compounded when attempting to apply an MI approach to autocorrelated time series. As such, MI is not commonly applied to time series data in ecology \citep{hossie_confronting_2021}, perhaps due to the large size of time series datasets and the increased computation time that multiple imputations require. 
+
+Model-based approaches, including the Kalman filter algorithm and Expectation maximization, use algorithms to handle missing data. Commonly used in time-series approaches, the Kalman filter is a two-step algorithm that consists of a prediction (or forecasting) step and an updating step \citep{kalman_filter_1960}. First, an observation is estimated based on a previous observation (the prediction step), and then this estimate is compared to the true value of the observation to determine a weighted average of the two values (the updating step). When observations are missing, this approach estimates the true, but unobserved state of the system and cannot perform the updating step, so estimates are derived purely from predictions based on the previous timestep. Expectation maximization (EM) is another flexible approach we consider to be `model-based'. EM is also an iterative algorithm with two steps; the expectation and the maximization steps \citep{nadjafi2022expectation,li2019expectation}. In the expectation stage, missing data are ``filled-in" with their expected values under a specified model with a ``working estimate" of the parameters. The filled-in data are then used to update the parameter estimates with their maximum likelihood estimates given the filled-in data. This iterative process continues until estimates converge (see below for more details) \citep{kang2013prevention}. EM is sensitive to the initial parameter vector, which may affect algorithm convergence in the likelihood function \citep{sammaknejad2019review, dempster1977maximum}. A random disturbance term is generated for each imputed value to reflect the uncertainty associated with this imputation method \citep{kang2013prevention}. EM is widely employed for managing missing data across disciplines \citep{nadjafi2022expectation, vamanu2019altered, sammaknejad2019review}. However, the approach does not scale with sample size and takes a long time to converge, limiting its current use in empirical studies. 
+
+More recently developed, model-based approaches present alternatives to handling data gaps based on probabilistic models. One such approach is data augmentation (DA), which treats missing observations as unknown parameters to be estimated along with the parameters of a specified model for the data-generating process (e.g., means or standard deviations). Markov chain Monte Carlo simulation can be used to simultaneously solve for parameters and missing data in a Bayesian framework. Outputs contain samples from posterior distributions for both the model parameters and missing data points, from which one can derive uncertainty estimates for both. While the researcher controls the number of samples in the posterior distribution, the number of values that each sample is allowed to explore is theoretically infinite. Thus, DA can be regarded as MI under a specified model, in which we can impute missing observations an infinite number of times \citep{kong_sequential_1994}. While DA may not improve upon the computation time necessary to run MI for complex data sets or models, it may substantially improve uncertainty estimates for the missing data. DA is a relatively new approach and, thus, has rarely been used in the ecological sciences. A few exceptions include estimating missing discharge and nutrient concentration data in time and space \citep{worrall_dissolved_2020}, and implementation of DA to impute missing mark-recapture data \citep{colchero_basta_2012, clark_hierarchical_2005}. Methodological studies have been conducted using DA for economic models \citep{bertschinger_bayesian_2021} and social sciences \citep{jackman_estimation_2000, honaker_what_2010}. 
+
+Moreover, auto-correlation between observations is common in time series data \citep{lichstein_spatial_2002, dale_spatial_2002}, and ignoring the auto-correlation structure of data in models can impart error when attempting to relate environmental controls to a specific process \citep{fieberg_understanding_2012}, highlighting the unique nature of time series data.

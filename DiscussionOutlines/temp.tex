@@ -1,0 +1,28 @@
+\subsection*{Times series with Gaussian error} 
+\begin{enumerate}
+    \item Comparison of parameter recovery across different methods (simulated dataset) and the implications 
+        \item Explain why data augmentation and Kalman filter had better performance. 
+        \item Parameter estimates vs mean standardized estimates for $\phi$ (Tradeoffs) at different levels of missingness
+    \item Comparison of estimation error (uncertainty) from different methods (real data): What did we learn?
+    \begin{enumerate}
+        \item Data augmentation and Kalman filter won the battle here again, indicating the consistency of these approaches in handling missing data. 
+    \end{enumerate}
+\end{enumerate}
+\subsection*{Impact of autocorrelation levels on MNAR dataset}
+\begin{enumerate}
+    \item Comparison of parameter recovery across different methods (simulated dataset) and the implications.
+    \item Comparison of estimation error (uncertainty) from different methods (real data): What insights did we get from the analysis?
+    \end{enumerate}
+
+\subsection*{Time Series with Poisson error}
+
+
+
+\subsection*{Small sample size bias}
+Longer time series of population data can be difficult to obtain and therefore often relative to other types of data sets, the sample size can be small (<100)
+$phi$ 
+
+\begin{equation}
+    Y_t = {\bf x}_t'{\bm \beta} + \phi \times (Y_{t-1} - {\bf x}_{t-1}'{\bm \beta}) + \varepsilon_t
+\label{eq:ar1}
+\end{equation}

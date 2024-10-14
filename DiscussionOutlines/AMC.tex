@@ -1,0 +1,23 @@
+
+Begin with a broad summary of all of the results we found. After that, 
+Important take home: missing data don't have to be a big problem! Even with half of your dataset missing, using the correct approach to dealing with the missingness can result in decent parameter estimates.
+
+\begin{enumerate}
+    
+    \item Review of missing data approaches and what we get from each of them. For example, which approaches give parameter estimates, which incorporate uncertainty (correctly), which give estimates of the missing data, what assumptions are we required to violate in each one. This could be discussion in the sense that we could briefly discuss the pros/cons of each approach. However, this may just be repetitive of the intro. Keeping it here as a possibility. 
+
+    \item Data deletion is rarely an acceptable approach. In time series data, it ignores the linkage between data points and can produce really poor parameter estimates.
+    
+    \item Data augmentation and Kalman filter approaches are the best at recovering parameters. They have the added benefit of giving you estimates of the missing data that are informed by your covariates, not just interpolated. 
+
+    \item The amount of autocorrelation in your missing data is not as important as how much data you are missing. In fact, high autocorrelation in missingness can make it easier to recover the parameters, unless the gaps result in the more systematic missingness in certain covariates that have high autocorrelation.
+    
+    \item For some model types, the size of your dataset will be important in deciding what method to use. Discussion of how the small sample bias plays out differently across missing data approaches.
+    
+    \item For out of sample prediction, none of these methods perform very well if the data you want to predict (either internally or though forecasting) aren't well represented by the data you do have (e.g. data missing not at random)
+    
+    \item Discussion of forecasting results tbd
+
+\end{enumerate}
+
+Overall, I don't think we need a long discussion for this paper. The results will tend to speak for themselves for most readers. The only other thing that maybe needs to go in somewhere is a comparison to what other missing data papers have found (are we confirming, contradicting, or adding to the available literature on best practices in dealing with missing data?).
