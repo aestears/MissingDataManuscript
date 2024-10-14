@@ -1,0 +1,1 @@
+This repository contains files for the written manuscript for the project "Missing Data in Ecological Time Series." The code for this project is in the repository https://github.com/melissadesiervo1031/missing-data. 
