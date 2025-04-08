@@ -1,0 +1,84 @@
+\subsection*{Time series with Gaussian error}
+\begin{enumerate}
+    \item MAR data w/ different levels of autocorrelation
+        \begin{enumerate}
+            \item Results for simulated data
+            \begin{enumerate}
+                \item accuracy of parameter recovery for different methods (DONE) 
+                \item precision of parameter recovery for different methods (DONE)
+            \end{enumerate}
+            \item Results for real data 
+            \begin{enumerate}
+                 \item comparison of methods in terms of estimation error (RMSE)
+            \end{enumerate}
+        \end{enumerate}
+    \item MNAR data
+    \begin{enumerate}
+            \item Results for simulated data
+            \begin{enumerate}
+               \item accuracy of parameter recovery for different methods (DONE)
+                \item precision of parameter recovery for different methods (DONE)
+            \end{enumerate}
+            \item Results for real data 
+                 \begin{enumerate}
+                 \item comparison of methods in terms of estimation error (RMSE)
+            \end{enumerate}
+        \end{enumerate}
+\end{enumerate}
+%%Bob is splitting results here.  This P should be on method overview
+In the simulated AR1 time series with different amounts of data missing at random (MAR) and different autocorrelation in missingness (150,000 missing datasets total), our ability to accurately and precisely recover model parameters within 95% CI varied depending on the missing data approach used (data deletion, Kalman filter, multiple imputations, or data augmentation with brms), the amount of missing data, the level of autocorrelation in missingness, and the model parameter in question (Figure~\ref{fig:parameterRecoveryGaussian_MARMNARlong}, Figure~\ref{fig:heatMap_gauss_MAR}). The data augmentation and the Kalman filter missing data approaches recovered the model parameter more accurately than other approaches (Figure~\ref{fig:parameterRecoveryGaussian_MARMNARlong}: A). The data deletion approach was less accurate, followed by the multiple imputations approach, which in some cases underestimated parameters by over 50\%. 
+
+% P on the accuracy of parameter recovery as a function of missingness and AC and method
+The $\phi$ parameter was accurately recovered by data augmentation and the Kalman filter for MAR across the level of missingness but was increasingly underestimated by models using the data deletion and multiple imputations approaches as the amount of missingness increased. Interestingly, the decline in $\phi$ accuracy of recovery with these two approaches became less steep as the amount of autocorrelation in MAR missingness increased.  In other words, we identified a slight trade-off between the effects of amount and autocorrelation of MAR missingness on the accuracy of $\phi$ recovery, such that the most inaccurate estimates of $\phi$ came from simulated time series with a high proportion (50%) and low autocorrelation (0) of MAR missingness ({New Gaussian Heatmap Fugure}). All missing data approaches showed a relatively similar pattern of changes in the accuracy of $\beta$ covariate recovery with the increasing proportion of missing data. This variation in accuracy is within 1% of the true parameter value for all missing data approaches. 
+
+
+%P on --precision-- of parameter recovery as function of missingness and AC
+Data augmentation and the Kalman filter had a higher precision of $\phi$ recovery and slightly became less precise as the amount of missingness increased. This was followed by data deletion and multiple imputations with decreasing precision as the amount of missingness increased. Alternatively, all four missing data approaches were less precise when estimating $\phi$, and there was variation in precision between the different approaches. All missing data approaches were relatively less precise in recovering $\beta$ covariate, with lower variation among the approaches compared to $\phi$ recovery. 
+
+Under MAR conditions, data augmentation and the Kalman filter achieved closer to 95% confidence interval (CI) coverage for $\phi$ compared to other methods, with consistent performance across increasing proportions of missing data. Data deletion outperformed multiple imputations in $\phi$ coverage but showed a steady decline in parameter coverage as missing data increased. The coverage of 
+$\beta$ covariate varies among the missing data approaches. Multiple imputations had higher coverage at 0 - 20 % missing data, simple data deletion at 40%, and data augmentation at 30% and 50% missingess. 
+
+
+In the simulated AR1 time series with different amounts of data missing *not* at random (MNAR) and different autocorrelation in missingness (150,000 missing datasets total), the accuracy of all methods in recovering $\phi$ and $\beta$ covariates declined substantially (Figure~\ref{fig:ParamRec_Gauss}). Again, data augmentation and the Kalman filter had the highest accuracy in recovering the median standardized estimates for $\phi$ and $\beta$ covariates (though much worse than the MAR data), and multiple imputations had the lowest accuracy in recovering these parameter estimates (Figure~\ref{fig:ParamRec_Gauss}). For all methods, mean standardized estimates for $\phi$ and $\beta$ covariates became increasingly poor at high levels of missingness and tended to underestimate $\phi$ and overestimate $\beta$ covariates (Figure~\ref{fig:ParamRec_Gauss}). $\phi$ and $\beta$ became less precise and accurate with an increasing proportion of missing data, and there was more variation in the differences between approaches for \phi$ than $\beta$ covariates. 
+
+Data augmentation and Kalman filter achieved close to 95% CI for $\phi$ coverage when there was no missingness in the data and declined progressively to 40% CI at 60% missingness. All other missing data approaches showed a decline in $\phi$ coverage as the proportion of missing data increased. A comparable trend was observed for $\beta$ covariates, with coverage dropping from 75% CI at no missingness to below 20% CI at 60% missing data for all approaches.
+
+
+[Paragraphs about the real GPP dataset]
+For the real GPP dataset, our model accuracy (RSME) varied between the missing data approaches used (data deletion, data augmentation, expectation maximization, or multiple imputations), the proportion of missingness, and the level of autocorrelation in missingness (Figure ...). Across all MAR simulations, the four missing data approaches had similar patterns of RMSE. The RMSE was generally higher for multiple imputation and data augmentation and lower for simple data deletion and expectation maximization. For all methods, RMSE became increasingly poor at high levels of missingness. The increasing proportion of missing data increases the uncertainty in the dataset, making it difficult for all methods to accurately capture the true patterns in the data. This results in larger prediction errors, indicated by higher RMSE values. 
+
+The pattern of prediction errors for all methods under MNAR conditions was the inverse of MAR. Data augmentation and simple data deletion had higher prediction errors with the increasing proportion of missing data. Multiple imputations had the lowest prediction error across the amount of missingness. The observed trend shows that with less amount of observed data, the inferences from all missing data approaches become less reliable. 
+
+All missing data approaches similarly cover simulation parameters close to 95% CI across the increasing proportion of missing data and levels of autocorrelation in missingness under MAR conditions {Figure .....} This high coverage percentage had little variation across the levels of autocorrelation in missingness and the amount of missing data. For MNAR, 
+
+For MNAR, where missingness is related to unobserved data, there was a wide variation in the coverage of simulation parameters by all methods, leading to differences in the reliability of these approaches. The parameter coverage generally declines with increasing amounts of missing data, with a similar pattern at 20% and 40% missingness, and this was slightly inverted at 60% proportion of missing data. Complete data deletion covers the highest simulation parameters across the increasing proportion of missing data and multiple imputations had the least coverage, except at 60% missing data. 
+
+
+\subsection*{Time series with Poisson error}
+
+In the simulated Ricker time series with different amounts of data missing at random (MAR) and different autocorrelation in missingness (150,000 missing datasets total), our ability to accurately and precisely recover model parameters varied depending on the missing data approach used, the amount of missing data, the level of autocorrelation in missingness, and the model parameter in question (Figs.\ \ref{fig:ParamRec_Poiss} \& \ref{fig:heatMap_poiss_MAR}). All missing data approaches, on average, overestimated both $r$ and $\alpha$ parameters that were used in the initial Ricker model-based simulations that generated the data. However, some approaches were consistently more accurate than others. The complete-case data deletion and expectation maximization approaches typically recovered model parameters most accurately, regardless of parameter or the amount of missingness (Fig.\ \ref{fig:ParamRec_Poiss}A). The data augmentation and multiple imputation approaches were less accurate, with data augmentation performing better in most scenarios. The simple-case data deletion approach was the least accurate, overestimating parameters by close to 80\% in some cases. The amount of missing data, regardless of autocorrelation in missingness, did not strongly affect the accuracy of the complete-case data deletion, expectation maximization, or data augmentation approaches. In contrast, the accuracy of the simple-case data deletion approach decreased markedly as the amount of missingness increased. However, this decrease in accuracy was less substantial as the amount of autocorrelation in missingness increased. We detected a similar pattern in the accuracy of the multiple imputation approach, which became less accurate as the proportion of missing data increased. It is notable that the missing data approaches we evaluated recovered both $r$ and $\alpha$  with very similar accuracy. 
+
+When comparing across all Ricker simulations, precision of parameter recovery typically decreased slightly (or standard deviation of parameter recovery across simulations increased) as the amount of missingness increased (Fig.\ \ref{fig:ParamRec_Poiss}B). There was not a strong difference in precision of parameter recovery between the $\alpha$ and $r$ model parameters. Whereas different missing data approaches had clear differences in accuracy, most approaches were relatively similar in their precision, especially when estimating the $\alpha$ parameter. Expectation maximization was generally the most precise missing data approach in all scenarios, but especially when estimating the $r$ parameter when missingness was high. Complete case data deletion and data augmentation were the next most precise, and multiple imputation and simple data deletion were the least precise. The simple data deletion method consistently showed low precision in recovering the parameters $r$ and $\alpha$
+
+
+
+We also fit Ricker models to 150 versions of a real population time series with different amounts and autocorrelation of data missing at random (MAR), each with the last five observations held out. We used each model to predict the last five years of observations, and found that forecasted population size  was generally quite close to the true value (Fig.\ \ref{fig:forecastAccuracy_poisson}). Forecast accuracy, as measured by root mean square error (RMSE), typically decreased as the amount of missing data increased (Fig.\ \ref{fig:forecastRMSE_poisson}). There was not a clear difference in forecasting ability of models based on the missing data approach that was used. There also was not a clear impact of the amount of autocorrelation of missingness on forecast ability. The one exception to these observed patterns (or lack thereof) is that, for models fit to data with highly autocorrelated missingness using the complete case data deletion missing data approach, forecast accuracy \textit{increases} as the amount of missingness increases. 
+
+
+\begin{enumerate}
+   \item MAR data w/ different levels of autocorrelation
+        \begin{enumerate}
+            \item Results for simulated data
+            \begin{enumerate}
+                \item accuracy of parameter recovery for different methods
+                \item precision of parameter recovery for different methods (except for EM method, which doesn't return SEs -- but could do 95\% CIs accross all model runs?)
+            \end{enumerate}
+            \item Results for real data 
+            \begin{enumerate}
+                 \item comparison of methods in terms of estimation error (RMSE)
+            \end{enumerate}
+        \end{enumerate}
+\end{enumerate}
+
+Interestingly, while data deletion and multiple imputation both showed a de showed a the decline in accuracy for $\phi$ recovery with these two approaches (data deletion an multiple imputations) became less steep as the amount of autocorrelation in MAR missingness increased. 
+In other words, we identified a slight trade-off between the effects of amount and autocorrelation of MAR missingness on the accuracy of $\phi$ recovery, such that the most inaccurate estimates of $\phi$ came from simulated time series with a high proportion (50\%) and low autocorrelation (0) of MAR missingness ({New Gaussian Heatmap Fugure}).

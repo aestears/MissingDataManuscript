@@ -1,0 +1,48 @@
+Please include your name and the corresponding line number(s) for all comments.
+
+Throughout, minor: the text goes back and forth between writing out 'missing at random' and 'missing not at random' and using the acronyms. I remember a discussion re: writing these out in figure panels, but don't recall whether we decided to do this throughout the text. Whatever we decide to do, we should standardize this throughout the text, as well as standardizing the capitalization scheme if we write out the phrases every time (Christa)
+
+section*{Introduction comments}
+\begin{itemize}
+    \item (minor) Line 16, would be nice to maybe include aquatic example as a time series? (Amy)
+    \item Line 20, ``environmental barriers" is potentially a little confusing, since now environment doesn't mean weather data, but sensor error, human error etc...(Amy)
+    \item Line 38-39 makes it seem like a modeling choice precludes the use of ARIMA models, rather than something about the underlying structure of the data (Amy)
+    \item Line 50, I'm struggling a little bit with MAR and MCAR, and was wondering if we could introduce a single example and illustrate with that example what MAR, MNAR, and MCAR mean instead of having different examples for each. ``Data are MAR when missing data are associated with other observed variables" what are the other variables? Our population data has no other variables so makes it hard to me to understand. (Amy)
+    \item Line 59, I think we can do more in this intro sentence to sell Figure 1 which is a great figure as a way to conceptually understand the methods we use (Amy)
+    \item Line 94-95, comparison appears in the sentence twice and seems repetitive, rephrase something here (Amy)
+\end{itemize}
+
+section*{Methods comments}
+\begin{itemize}
+    \item Lines 111-115, this seems to me like a run on sentence, and also like we are writing the same equation 2 times in the same sentence, consider simplifying the structure with just a list of parameter/variable definitions after the equation (Amy)
+    \item Line 116, this is where we first see iid, lets add the definition here? (Amy)
+    \item Line 120-121 note to recheck these units once we check with Alice Carter about the Gaussian real data source/preprocessing (Amy)
+    \item Line 139, I looked for the great tit data source, but just found song/audio data, plus a website that had an email address to contact for data etc, rather than a data repository, could whoever downloaded it cite the source? (Amy)
+    \item Line 143, 152, 163, I'm unsure if this figure is still part of the paper? Will it be an appendix figure now? I think people will be bothered by the ?? (Amy)
+    \item Line 183-184, not strictly true (90\% and 10\%) for the Ricker data, it was actually 83\% vs 17\%, update here (Amy)
+    \item Line 186, ``behaved varied" grammar (Amy)
+    \item Line 193, add brief definition/reminder of what $p$ means since it wasn't defined or last reference in this subsection (Amy)
+    \item Line 206-208 I thought RMSE told us about the accuracy, but not the precision? Could be wrong for sure. (Amy)
+    \item Line 276, so does this mean we used Arima in R for this method or did a separate thing? (Amy)
+    \item Line 294, 311, write something to inidicate these will be appendix figures (Amy)
+    \item Line 307-308, do we potentially want reference(s) for Gibbs sampler with Metropolis updates? (Amy)
+\end{itemize}
+
+
+section*{Results comments}
+\begin{itemize}
+    \item Lines 198 - 201: The relevant figures (Fig. 2 & 4) for this part now show the median absolute error in the paper. I think we need to update the text here to indicate how the median absolute error was calculated. (Saheed)
+\end{itemize}
+
+section*{Discussion comments}
+\begin{itemize}
+    \item Are we sending this out as is? 
+\end{itemize}
+
+section*{Figure comments}
+\begin{itemize}
+    \item Figure 6, I wanted to confirm with everyone if it's actually ok to use confidence interval calculation of $\pm 1.96\times SE$ for the RMSE? I'm thinking the RMSE is probably not Gaussian distributed so not sure if this is really better than the interquartile range that I had before? I just changed it to match the Gaussian but not sure I buy it's accuracy. (Amy)
+\end{itemize}
+
+section*{Other comments}
+
