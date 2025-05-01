@@ -900,6 +900,7 @@ FUNCTION {article}
   %format.url output
   new.block
   %format.note output
+
   fin.entry
 }
 
@@ -1018,6 +1019,7 @@ FUNCTION {incollection}
   if$
   new.block
   %format.url output
+
   new.block
   format.note output
   fin.entry
@@ -1179,6 +1181,7 @@ FUNCTION {unpublished}
   format.url output
   new.block
   %format.note "note" output.check
+
   fin.entry
 }
 
