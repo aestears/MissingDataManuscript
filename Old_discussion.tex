@@ -1,0 +1,110 @@
+
+%\textit{IDEA: an inset box/ sidebar / table with a quick summary of the pros/cons of each missing data approach and recommended + not-recommended data types for each?  Could also incorporate uncertainty generated w. each method, unless that gets too clunky. }
+
+%throughout, talk about the accuracy and precision of each missing data approach (we will add info about forecast accuracy once those results are finished up)
+
+\subsection*{For time series, some missing data methods are better than others}
+
+% (P2) Some methods are just not good to use in any scenario
+We caution against simple data deletion as an approach to dealing with missing data in time series. While it may be intuitive that simply removing data points could cause irregular timesteps that violate model assumptions, this approach is straightforward and can actually occur under the hood in some modeling packages without it being obvious to the researcher. Parameter recovery after simple data deletion was the worst of all approaches for the population models and second worst for the Gaussian time series. However, if done with care to maintain the autoregressive structure of the dataset through complete case deletion, this approach becomes a viable option depending on the size of your data set and the model's autoregressive structure. With the Ricker model, we effectively regress the population abundance at time $t$ against the abundance at time $t-1$. We, therefore, only need pairs of $(y_t, y_{t-1})$ to estimate $\alpha$ and $r$, which is why the simple complete cases approach worked well under a wide range of simulated conditions. However, if the temporal structure of the model involves longer time lags (e.g., if the population abundance at times $t-k,...,t-1$ for $k > 1$ are all important for the process being modeled), the complete cases approach becomes much less appealing as many more observations become unusable. For example, if we were to consider a model in which we had an endogenous effect of order 2, such that the expected value of $y_t$ depended on both $y_{t-1}$ and $y_{t-2}$, then the observation of $y_t$ would not be usable if either $y_{t-1}$ or $y_{t-2}$ were missing, and only consecutive 3-tuples of data would be usable. This could become limiting with higher order lagged effects or increasing missingness.
+
+
+% (P3) What is its internal autocorrelation structure of your dataset? What is the type of model you'll be using? What is the error distribution of your dataset? 
+   % \begin{itemize}
+   %     \item If you have an autoregressive process w several covariates, the Kalman filter may be the best choice. 
+   %     \item If Ricker, i.e. each data point only relies on the previous time point, complete case deletion can be one of the best methods. 
+   % \end{itemize}
+
+
+Among the methods that performed well, we found a trade-off in the accuracy and precision of parameter estimation for the Gaussian dataset. Data augmentation and the Kalman filter were more accurate, while multiple imputation and data deletion were more precise for MAR. This finding suggests that ecologists must consider whether accuracy or precision is more important for achieving study objective(s) before choosing a missing data approach (Christie et al., 2019; Fielding and Bell, 1997), though picking one does not necessarily make the other less important. For MNAR, parameter estimates are biased across the methods, with data augmentation and the Kalman filter performing better and multiple imputations performing worse. 
+
+
+From the Ricker model simulations, complete case deletion and expectation maximization are more accurate and precise in recovering model parameters, indicating the superiority of these approaches over the others for handling missing data. The poor performance of simple data deletion and multiple imputation suggests that these methods are unsuitable for handling missing data at varying levels of autocorrelation and missingness. For instance, simple data deletion overestimates parameter accuracy by ~80\% with increasing levels of missingness and autocorrelation. The consistent and precise recovery of $r$ at medium (with 10\% missingness) and high (40-50\% missingness) autocorrelation levels across the methods highlight the importance of autocorrelation on the precision of parameter estimates. Overall, our results suggest that data augmentation and the Kalman filter are most robust in handling missing data and multiple imputation is the least efficient. It is worth noting that the complexity of a missing data approach is not directly proportional to its efficacy. Data deletion produces poor parameter estimates due to ignoring the linkage between data points. Ecologists should consider the Kalman Filter and Data augmentation for accuracy and multiple imputation and complete case deletion for precision under MAR conditions.
+
+
+%Of the remaining methods, there are multiple considerations that should inform which missing data method you use. It's important to note that the complexity of a method is not directly related to its efficacy! 
+
+
+
+An additional consideration is the type of response variable and whether it is used as an endogenous explanatory variable in the time series model. If the response variable is discrete, data augmentation can be much more difficult to implement and may require custom scripts or clever reformulations of the likelihood that marginalize over the missing observations to fit the model. The expectation maximization algorithm can be easier to implement in these situations, but comes with the drawback of not directly providing standard errors for the estimates. An approach we did not consider here for the integer-valued time series is to use latent (Gaussian) temporal processes to induce temporal autocorrelation in the response variable. Latent temporal process models are common in repeated measures studies that use generalized linear mixed models (e.g., CITE), but these models may not have clear translations from theoretical ecology. Thus, appropriate handling of missing observations in ecological time series data will likely be determined by weighing many practical and theoretical concerns, and there is no uniform solution.
+
+
+\subsection*{Missing data type matters more than missingness amount with Gaussian time series data}        
+%(P4) What type of missingness does the dateset have? (Gaussian example, add Ricker?)
+
+Time series datasets with a large proportion of missing data, up to 40\% had a small effect on parameter recovery accuracy for slope and intercept ($\beta$) terms in the AR1 model using Kalman filter and data augmentation approaches. Estimation of $\phi$ became less accurate as the amount of missting data increased.  Likewise the degree of autocorrelation in the missing data, i.e., the extent to which missing data cluster, had little effect on parameter recovery. In fact, more autocorrelation improved estimates of $\phi$, presumably because consecutive days of measured data are needed to estimate  $\phi$ well.  Indeed high autocorrelation in missingness may make it easier to recover the parameters because having longer uninterrupted stretches of complete data is better than many smaller stretches of data. Overall, the methods used here are quite tolerant of even large amounts of missing  data so long as the data were missing at random (MAR).
+
+The type of missingness affected parameter estimation far more than the amount in terms of correctly interpreting model output and predictions. Perhaps unsurprisingly, parameter estimates and predictive accuracy were generally poorer when data were missing not at random (MNAR; Fig.~\ref{fig:ParamRec_Gauss}). In these scenarios, the missing data introduced a systemic bias to the dataset by removing extreme values and thus artificially constraining the observed variability in the data \citep{rubin_inference_1976}. With MNAR data, $\beta$ parameter estimates diverged greatly with even a small amount (5\%) of missing data. Thus, investigators need to be sure that missing data are due to random events and not a function of the values themselves.  In contrast, when data were missing at random (MAR), no such systemic bias was introduced and all methods performed better and could accommodate higher proportions of missing data (Fig.~\ref{fig:ParamRec_Gauss}). 
+
+Given the strong bias induced by MNAR data, practitioners should first attempt to identify which type of missing data mechanism is at play in their dataset to properly condition their interpretations of model results. Unfortunately, there is no clear statistical test to identify data missing not at random because, by definition, missingness correlates with an unmeasured covariate in the system \citep{van2018flexible}. However, using expert knowledge of ecosystems and data collection methods coupled  with  exploratory data visualizations, one can identify how likely the data are to be missing not at random. For example, if certain monitoring equipment is known to have issues with extreme values or if a histogram of observed data appears highly truncated at the tails (e.g., Fig.\ \ref{fig:missingtypes}G), then it might be more likely that data are missing not at random.  Indeed we suggest caution in assuming that missing data are ever truly random given that e.g., solar powered sensors may fail during dark times of year, sensors biofoul during productive seasons, or population assessments get cancelled due to bad weather.   These scenarios would generate MNAR data in a pattern similar to the simulations here and even small amount of missing data (5\%) could generate biased parameter estimates.  Practitioners should be skeptical of assuming randomness in missing data when interpreting model output regardless of the strategy used to accommodate the missing data.
+
+            %\begin{itemize}
+            %    \item MNAR: For the Gaussian data, data that is missing not at random can be a big problem for all of the methods that we tested, often producing very biased estimates with the bias increasing with the amount of data that is missing. --could talk about how to determine whether your data are MNAR? may be practically useful
+            %    \item MAR: Gaussian data that is missing at random can often produce decently un-biased estimates, but the confidence in an estimate will decrease with increased missingness. 
+            %    \item Ricker examples--type of missingness is not much of a concern, since we really only have one type...
+            %\end{itemize}
+
+% (P5) How much data are you missing?
+                % \item If you chose a good method of dealing with missing data, and you have MAR data (not MNAR), you can get away with pretty high amounts of missing data (upwards of 30\%!) without sacrificing too much in parameter recovery accuracy and precision.  
+                % \item Researchers should consider how much bias they are willing to risk when deciding how much missing data is too much.
+
+ % some studies, e.g. long time series of aquatic metabolism,  Non-random causes could be biofouling during the most productive days of the year, or floods preventing metabolism estimation during the least productive days of the year.
+
+%need to emphasize here and/or at end  that investogators would be wise to not take our word for it, but  to conduct their own fake data simulations, cite Gelman Bayessian workflow)
+
+%(P6) What is the autocorrelation structure of the missingness itself? 
+ %           \begin{enumerate}
+%                \item  The amount of autocorrelation in your missing data is not as important as how much data you are missing.  
+%                \item High autocorrelation in missingness can make it easier to recover the parameters (having longer uninterrupted stretches of complete data is better than many smaller stretches of data).
+%                \item Problems with autocorrelated data occur when the missing data stretches coincide with particular conditions in the covariates (aka a type of nonrandom missingness). OR in different words, unless the gaps result in the more systematic missingness in certain covariates that have high autocorrelation.
+%                \item Researchers should keep this in mind when designing experiments and anticipating what situations could cause missing data. 
+%            \end{enumerate}
+
+
+% (P7) Parameter recovery bias, in Poisson models in particular 
+                % \item E.G. Ricker data: Ricker time series estimates can be especially biased due to low sample size. Population time series data is typically small (<100): it can be difficult to obtain, and therefore has a small sample size compared to other types of data sets. 
+               % \item Discussion of how the small sample bias plays out differently across missing data approaches 
+
+
+ \subsection*{Population models....}
+ 
+Population time series data pose distinct challenges to parameter recovery primarily due to their usually limited sample size. This pattern leads to the problem of small sample size bias in parameter estimation, underscoring the need to select an appropriate method to deal with missing data so as not to further exacerbate this bias. In particular, when fitting discrete population data to a Ricker model with Poisson error without explanatory covariates, the autocorrelation of missingness can substantially affect the results. Data sets with many small gaps (low autocorrelation of missingness), pose greater challenges than data sets with fewer but larger gaps (high autocorrelation of missingness) because parameter recovery depends on the availability of pairs of consecutive non-missing data points, as well as the total number of non-missing data points. In fact, among the methods evaluated, one of the top-performing methods with the least bias was complete case data deletion, where only consecutive pairs of data points are kept, and the rest are deleted. However, caution with data deletion is warranted, as the worst-performing method was simple data deletion, which disregards data gaps and wrongly treats data points before and after a gap as consecutive points. Expectation maximization ties complete case data deletion for the best method for this data type, with multiple imputation and data augmentation giving estimates with intermediate bias.
+
+
+
+\section*{Considerations for choosing how to account for missing data}
+
+% (P8) What information from the models do you plan to use? Do you want the model parameters only, or do you also want estimates of the actual data values that were missing? Some approaches can provide both, while others can only provide the former. 
+Selecting a missing data approach depends on the goals of data analysis. All of the methods we present are useful in generating parameter estimates based on a model describing the data; however, not all of them generate estimates of the missing data values. If such estimates are desired, data augmentation, which treats the missing data points as parameters, and multiple imputation, which imputes several versions of the dataset, can provide estimates of missing response variables. Additionally, either of these methods could be adapted to accommodate missing values in predictor variables if a model for those data was incorporated. While both approaches will provide an estimate of the uncertainty for the filled-in data points, this interval may be more robust for the data augmentation than multiple imputations which will be influenced by the number of imputations used. Both the Kalman filter and expectation maximization algorithms forecast or impute across data gaps without estimating each step, and thus cannot generate estimates of the missing data. Data deletion approaches, of course, do not provide a filled-in dataset as part of the results. 
+
+
+%(P9) Comparison to what other missing data papers have found 
+%        \begin{enumerate}
+%             \item Are we confirming, contradicting, or adding to the available literature on best practices in dealing with missing data?
+ %       \end{enumerate}
+
+
+Our simulations showed that under certain conditions, parameter estimation is robust to high levels of random missingness.  On the surface this finding is useful, but may not be universal to the myriad ecological time series applications that inevitably have missing data. Investigators would be wise to verify the effects of missing data for their own situations and models by conducting tests as we have done here with simulated missing data. Indeed such simulated data exercises are a necessary part of the modeling workflow \citep{gelman2020bayesian}.  
+
+\subsection{Conclusion}
+Big take home message: Missing data don't have to be a big problem! Even with half of your dataset missing, using the correct approach to dealing with the missingness can result in decent parameter estimates.
+
+The prevalence of missing data in ecological research necessitates robust approaches to handle it, as failure to do so can bias parameter estimates and lead to erroneous conclusions. We show that while missing data need not be a major issue, researchers must identify the type of missingness and select appropriate methods to address it before conducting analyses. We show that different approaches are suitable for different types of missingness, and even when about half of the data set is missing, using the correct approach to handle missing data can result in decent parameter estimates. 
+
+
+Under MAR conditions, 
+
+Under MNAR condtions, 
+
+
+
+Trimmed from Discussion after 3/12/25 meeting
+
+
+
+
+ 
+    Ecological time series inevitably contain missing data, making assessing the missingness structure essential before applying statistical methods. This involves determining whether the missing data point(s) are related to other observed variables (MAR) or dependent on the missing values themselves (MNAR). Understanding this distinction is critical for selecting the appropriate method for handling missing data to ensure unbiased estimates and reliable ecological conclusions. Our results indicate that the various missing data approaches handle MAR data well, while none returned accurate parameter estimates for the MNAR dataset. Interestingly, many real-world ecological datasets fall into the MNAR category; we caution against using any of the methods reported here in such instances to avoid leaning on misleading estimates and incorrect conclusions. Our findings provide a practical guide for selecting suitable approaches once the missingness structure is identified to ensure the analysis yields robust and unbiased ecological inferences. However, further research is needed to develop more robust methods for addressing the widespread challenge of missing data in ecology, particularly those capable of handling MNAR datasets without biasing the estimates and accuracy.
+    
+ However, it is important to consider the type of missingness present in a time series. In time series with Gaussian error with data missing not at random (MNAR), the accuracy of parameter recovery decreased markedly once the proportion of missingness increased above ~10\%, due to the inherent structure in the missing data. Below, we delve more specifically into recommendations for missing data approaches for certain scenarios and further explore the impacts of different amounts and types of missing data on model performance.
+
