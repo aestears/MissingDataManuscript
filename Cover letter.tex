@@ -1,0 +1,134 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Long Lined Cover Letter
+% LaTeX Template
+% Version 2.0 (September 17, 2021)
+%
+% This template originates from:
+% https://www.LaTeXTemplates.com
+%
+% Authors: Fanchao Chen
+% (chenfc@fudan.edu.cn)
+%
+% License:
+% CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage{charter} % Use the Charter font
+\usepackage{soul}
+
+\usepackage[
+	a4paper,    % Paper size
+	top=1in,    % Top margin
+	bottom=1in, % Bottom margin
+	left=1in,   % Left margin
+	right=1in,  % Right margin
+	%showframe  % Uncomment to show frames around the margins for debugging purposes
+]{geometry}
+
+\setlength{\parindent}{0pt}     % Paragraph indentation 
+\setlength{\parskip}{1em}       % Vertical space between paragraphs
+
+\usepackage{graphicx}       % Required for including images
+
+\usepackage{fancyhdr}       % Required for customizing headers and footers
+
+\fancypagestyle{firstpage}{%
+	\fancyhf{} % Clear default headers/footers
+	\renewcommand{\headrulewidth}{0pt} % No header rule
+	\renewcommand{\footrulewidth}{1pt} % Footer rule thickness
+}
+
+\fancypagestyle{subsequentpages}{%
+	\fancyhf{} % Clear default headers/footers
+	\renewcommand{\headrulewidth}{1pt} % Header rule thickness
+	\renewcommand{\footrulewidth}{1pt} % Footer rule thickness
+}
+
+\AtBeginDocument{\thispagestyle{firstpage}} % Use the first page headers/footers style on the first page
+\pagestyle{subsequentpages} % Use the subsequent pages headers/footers style on subsequent pages
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	FIRST PAGE HEADER
+%----------------------------------------------------------------------------------------
+
+%\includegraphics[width=0.2\textwidth]%{Convergence_Divergence_Manuscript/UWBotany.jpg} % Logo
+
+\vspace{-1em} % Pull the rule closer to the logo
+
+\rule{\linewidth}{1pt} % Horizontal rule
+
+\bigskip % Vertical whitespace
+
+%----------------------------------------------------------------------------------------
+%	YOUR NAME AND CONTACT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\hfill
+\begin{tabular}{l @{}}
+	\today \bigskip\\ % Date
+	University of Wyoming\\
+	Botany, Dept 3165\\
+    1000 E. University Ave\\
+    Laramie, Wyoming, 82071\\
+\end{tabular}
+
+\bigskip % Vertical whitespace
+
+%----------------------------------------------------------------------------------------
+%	ADDRESSEE AND GREETING
+%----------------------------------------------------------------------------------------
+
+
+\bigskip % Vertical whitespace
+
+Dear Dr. Kathy Cottingham and \textit{Ecology} Editorial Board,
+
+\bigskip % Vertical whitespace
+
+%----------------------------------------------------------------------------------------
+%	LETTER CONTENT
+%----------------------------------------------------------------------------------------
+
+
+Thank you for receiving our manuscript, \textit{Accounting for missing data in autoregressive models of ecological time series} for consideration as a Statistical innovations article in \textit{Ecology}. Missing data are a ubiquitous phenomenon in ecological studies for reasons such as faulty environmental sensors, inaccessibility of field sites, and funding challenges. Data gaps are especially problematic when fitting autoregressive time series models, since missing values violate the key statistical assumption of observations that are equally spaced in time. Our study provides a much needed comparison of multiple previously proposed approaches for handling missing data in time series. 
+
+Here, we evaluate statistical methods for handling missing data in time series by fitting models to two common types of ecological data: daily observations of a continuous variable with a Gaussian error distribution (analogous to sensor data) and annual observations of a discrete variable with a Poisson error distribution (analogous population count data). We artificially introduce missingness of different amounts and  types (random versus nonrandom, high and low levels of autocorrelation in missingness etc.) and then quantify the performance of six statistical approaches in terms of accuracy and precision. Our results show that when data are missing completely at random, parameters were recovered well even with as high as 50\% missingness and high levels of autocorrelation in missingness. Conversely, parameter estimates and forecasts were unreliable when data were missing not at random. The best performing missing data approaches were the Kalman filter and data augmentation for time series with Gaussian error and data augmentation and complete case data deletion for time series with Poisson error. Overall, we believe our study is novel and of interest to the broad audience of \textit{Ecology} as it can be a resource for ecologists, environmental scientists, and statisticians in search of robust, reproducible methods for confronting time series models with missing data. In particular:
+
+\begin{itemize} 
+
+\item {Our paper provides a \ul{robust test of competing statistical approaches for handling missing data in time series}, using both simulated and real data with different error distributions (Gaussian and Poisson).} 
+
+\item {It highlights common aspects of missing data that are especially challenging to time series, such as \ul{highly auto-correlated data gaps} (ie: sensor data are missing for multiple weeks at a time} or data that are \ul{missing not at random} (ie: extreme values missing due to unusual weather events) 
+
+\item {Our results highlight a positive message that \ul{missing values in time series do not necessarily have a catastrophic effect on model accuracy, precision, or forecast ability}. In fact, parameter estimation can be fairly robust as long as the error distribution, the type of missingness, and amount of auotocorrelation are taken into account.}. 
+
+\end{itemize}
+
+We have no competing interests to report and the submitted work is not under consideration
+elsewhere. The data and the code accompanying this manuscript are currently available in a github repository:\\
+ Thank you for considering our manuscript for publication in \textit{Ecology}.
+
+\bigskip % Vertical whitespace
+
+Sincerely,
+
+Alice M. Stears,  Melissa H. DeSiervo, \\
+Lauren G. Shoemaker, Topher Weiss-Lehman,\\
+and all other coauthors
+
+
+\vspace{25pt} % Vertical whitespace
+
+
+\end{document}
