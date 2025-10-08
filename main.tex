@@ -36,7 +36,7 @@
 
 \noindent\textbf{Journal}: Ecology; \textbf{Article Type}: Statistical Innovations
 
-{\Large \noindent \bf %Approaches for handling missing data in ecological time series
+{\large \noindent \bf %Approaches for handling missing data in ecological time series
 Accounting for missing data in autoregressive models of ecological time series
 }
 
@@ -85,17 +85,13 @@ Christopher Weiss-Lehman$^{\circ}$\textsuperscript{2}
 
 \noindent\textsuperscript{11} Department of Biology, New Mexico Institute of Mining and Technology, Socorro, NM
 
-\noindent\textsuperscript{*} Denotes equal contribution as lead author
-
-\noindent{$^{\circ}$} Denotes equal contribution as primary investigator
+\noindent\textsuperscript{*} Denotes equal contribution as lead author; {$^{\circ}$} Denotes equal contribution as primary investigator
 
 \noindent \textbf{Corresponding author}: Alice Stears, alice.e.stears@gmail.com 
 
-
-
 %\noindent Target Journal: Ecology, as a ``Statistical Innovations" article \\ (https://esajournals.onlinelibrary.wiley.com/hub/journal/19399170/author-guidelines) 
 
-\noindent \textbf{Open Research Statement}: All R code to generate simulated data and conduct analyses are available in a GitHub repository (https://github.com/melissadesiervo1031/missing-data), and will be publicly archived upon acceptance of the manuscript. 
+\noindent \textbf{Open Research Statement}: All R code to generate simulated data and conduct analyses is available in a GitHub repository (https://github.com/melissadesiervo1031/missing-data), and will be archived on Zenodo upon acceptance of the manuscript. Empirical data we used is either included in the above repository and will be archived, or is from \citet{appling_metabolic_2018}. 
 
 \noindent \textbf{Key words:} Time series; missing data; autoregressive models; forecasting; simulations
 
@@ -241,7 +237,7 @@ For each of the simulated real-valued time series we created 15 MNAR datasets wi
 %\vspace{-2em}
 %\subsection*{Parameter recovery in models of count time series}
 %\vspace{-0.75em}
-\textbf{Parameter recovery in models of count time series:} When fitting the Eq. \ref{eq:ricker2} population model to simulated time series of count data with observations that were MCAR, the simple data deletion approach did not recover the density-independent growth rate ($r$) or intraspecific competitive effect ($\alpha$) as accurately as other approaches, particularly as the proportion of missing data increased (Fig. \ref{fig:ParamRec_Pois}). Among the remaining approaches, EM consistently had low median error and median absolute error. Interestingly, complete data deletion also had low median error, similar to EM, but higher median absolute error than EM. However, this pattern was reversed for DA, which recovered parameters with relatively higher median error than EM, but lower median absolute error (i.e. the estimates were more stable, but slightly more biased). Finally, MI recovered parameters with higher median error and median absolute error, though was still much more accurate and precise when compared to simple data deletion. In addition to generating higher errors, both simple data deletion and MI had substantially reduced coverage of both parameters. Similar to the results for real-valued time series, autocorrelation in missing data led to more accurate parameter estimates for the simple data deletion method, but had little impact on other methods (Appendix S1: Fig. S3).
+\textbf{Parameter recovery in models of count time series:} When fitting the Eq. \ref{eq:ricker2} population model to simulated time series of count data with observations that were MCAR, the simple data deletion approach did not recover the density-independent growth rate ($r$) or intraspecific competitive effect ($\alpha$) as accurately as other approaches, particularly as the proportion of missing data increased (Fig. \ref{fig:ParamRec_Pois}). Among the remaining approaches, EM consistently had low median error and median absolute error. Interestingly, complete data deletion also had low median error, similar to EM, but higher median absolute error than EM. However, this pattern was reversedcafor DA, which recovered parameters with relatively higher median error than EM, but lower median absolute error (i.e. the estimates were more stable, but slightly more biased). Finally, MI recovered parameters with higher median error and median absolute error, though was still much more accurate and precise when compared to simple data deletion. In addition to generating higher errors, both simple data deletion and MI had substantially reduced coverage of both parameters. Similar to the results for real-valued time series, autocorrelation in missing data led to more accurate parameter estimates for the simple data deletion method, but had little impact on other methods (Appendix S1: Fig. S3).
 
 %When considering the coverage of parameter estimates from each method, several important patterns arise. First, simple data deletion had the lowest coverage among all methods (Fig. \ref{fig:ParamRec_Pois}). Taken together with its poor performance in terms of error, this suggests that methods relying on simple data deletion will be particularly dangerous as parameter estimates are likely to be quite inaccurate but accompanied by overly narrow confidence intervals. Just as in the simulations of real-valued data, this same problem applies to MI, though to a lesser extent than for simple data deletion. On the other hand, DA and complete-case data deletion both maintain close to 95\% coverage across a range of missing data amounts, suggesting these methods are accurately quantifying uncertainty around parameter estimates. Importantly, EM does not provide standard error for parameter estimates so coverage for this method cannot be assessed. Researchers should therefore only consider EM if they do not need to account for uncertainty in parameter estimates.
 
