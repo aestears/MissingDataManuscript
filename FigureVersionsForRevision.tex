@@ -1,0 +1,117 @@
+\documentclass[a4paper]{article}
+
+\usepackage[pages=all, color=black, position={current page.south}, placement=bottom, scale=1, opacity=1, vshift=5mm]{background}
+
+\usepackage[margin=1in]{geometry} % full-width
+\usepackage{float}
+% AMS Packages
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+% Unicode
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+
+
+% Vietnamese
+%\usepackage{vntex}
+
+% Natbib
+\usepackage[sort&compress,numbers,square]{natbib}
+\bibliographystyle{mplainnat}
+
+\usepackage{graphicx, color}
+
+% Author info
+\title{Figure drafts for revision}
+
+
+\begin{document}
+	\maketitle
+	
+	\large{\textbf{Real-valued (``Gaussian") simulated data}}
+    %% Parameter recovery
+
+\begin{figure}[H]
+    \centering
+    \noindent\includegraphics[width = 0.85\textwidth]{Figures/NewFiguresForRevision/simGaussData_paramRecovery.png}
+    \caption{Real-valued, Simulated Data: Parameter Recovery. Changes: added param. recovery values for models fit to data w/ no missingness. Still need to complete a few brms model runs for MCAR data, but otherwise should be complete. }
+    \label{fig:gaussSimParamRecovery}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \noindent\includegraphics[width = 0.85\textwidth]{Figures/NewFiguresForRevision/simGaussData_MCAR_heatmap.png}
+    \caption{Real-valued, Simulated Data: Heatmap of parameter recovery in MCAR data (for supplement). Changes: added param. recovery values for models fit to data w/ no missingness. Also, missingess was created w/ values around .2, .4, and .6, so the bins on the x-axis in this figure are changed to correspond to this. Still need to complete a few brms model runs for MCAR data, but otherwise should be complete. }
+    \label{fig:gaussSimHeatmap}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \noindent\includegraphics[width = 0.85\textwidth]  {Figures/NewFiguresForRevision/simGaussData_MCAR_heatmap_justPhi.png}
+    \caption{Real-valued, Simulated Data: Heatmap of parameter recovery in MCAR data, zoomed in on results for Phi. Changes: added param. recovery values for models fit to data w/ no missingness. Also, missingess was created w/ values around .2, .4, and .6, so the bins on the x-axis in this figure are changed to correspond to this. Still need to complete a few brms model runs, but otherwise should be complete. }
+    \label{fig:gaussSimHeatmap_phi}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \noindent\includegraphics[width = 0.85\textwidth]{Figures/NewFiguresForRevision/simGaussData_forecastRMSE.png}
+    \caption{Real-valued, Simulated Data: Forecast accuracy. Should look essentially the same as the previous version. Still need to complete a few brms model runs, and this raises concerns that the MI model fits are incorrect, which I'll look more into. Also, for some reason some of the Kalman Filter predictions are excluded?}
+    \label{fig:gaussSimHeatmap_phi}
+\end{figure}
+
+\newpage
+	\large{\textbf{Real-valued (``Gaussian") real data}}
+
+ %   \begin{figure}[H]
+ %   \centering
+ %   \noindent\includegraphics[width = 0.85\textwidth]%{Figures/NewFiguresForRevision/realGaussData_paramRecovery.png}
+ %   \caption{Real-valued, real Data: Parameter Recovery. Changes: added param. recovery %values for models fit to data w/ no missingness.}
+ %   \label{fig:gaussRealParamRecovery}
+%\end{figure}
+
+
+    \begin{figure}[H]
+    \centering
+    \noindent\includegraphics[width = 0.85\textwidth]{Figures/NewFiguresForRevision/realGaussData_forecastRMSE.png}
+    \caption{Real-valued, real Data: Forecast accuracy. Should look essentially the same as the previous version.  }
+    \label{fig:gaussRealParamRecovery}
+\end{figure}
+
+\newpage
+	\large{\textbf{Count (``Poisson") simulated data}}
+
+    \begin{figure}[H]
+    \centering
+    \noindent\includegraphics[width = 0.85\textwidth]{Figures/NewFiguresForRevision/poissSim_paramRecoveryANDrmse_fig.png  }
+    \caption{Counts (Poisson), Simulated Data: Parameter recovery AND forecast RMSE for both MCAR and MNAR missingness }
+    \label{fig:gaussSimHeatmap_phi}
+\end{figure}
+
+ 
+
+    \begin{figure}[H]
+    \centering
+    \noindent\includegraphics[width = 0.85\textwidth]{Figures/NewFiguresForRevision/simPoissData_MCAR_heatmap.png}
+    \caption{Counts (Poisson), Simulated Data: heatmap of parameter recovery in MCAR data}
+    \label{fig:gaussSimHeatmap_phi}
+\end{figure}
+
+
+\newpage
+	\large{\textbf{Count (``Poisson") empirical data}}
+\begin{figure}[H]
+    \centering
+    \noindent\includegraphics[width = 0.85\textwidth]{Figures/NewFiguresForRevision/realPois_forecastRMSE.png}
+    \caption{Counts (Poisson), Empirical Data: Forecast RMSE for MCAR data with medium autocorrelation, and MNAR data. Panel A shows the population size for Bursaria for each patch. This figure is waiting on information from EM (new version) and DA model types. 
+    Talking w/ Amy to figure out why there aren't values for 60\% missingness w/ MNAR data (there should be values)}
+    \label{fig:gaussSimHeatmap_phi}
+\end{figure}
+
+%\begin{figure}[H]
+%    \centering
+%    \noindent\includegraphics[width = 0.85\textwidth]%{Figures/NewFiguresForRevision/realPoissData_paramRecovery.png}
+%    \caption{Counts (Poisson), Empirical Data: Parameter recovery of different missing data %approaches (using parameters fit to a time series with no missing data as the 'true %parameters' for the sake of comparison). This figure is waiting on updated results from %the EM and DA methods. Per Amy, models aren't running with the MI method using MNAR data %w/ high missingness (> 60\% missingness). I'm not whether we want to double down on %getting these to run, or just acknowledge that MNAR data w/ this much missingness in a %patch just doesn't work, which seems consistent with our overall message that MNAR data %are particularly bad. I can try to denote this in the figure in some way.    }
+%    \label{fig:gaussSimHeatmap_phi}
+%\end{figure}
+
+\end{document}

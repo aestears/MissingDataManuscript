@@ -1,0 +1,94 @@
+
+\documentclass{article}
+
+\usepackage{charter} % Use the Charter font
+\usepackage{soul}
+\usepackage[style=apa]{biblatex}
+\usepackage[
+	a4paper,    % Paper size
+	top=1in,    % Top margin
+	bottom=1in, % Bottom margin
+	left=1in,   % Left margin
+	right=1in,  % Right margin
+	%showframe  % Uncomment to show frames around the margins for debugging purposes
+]{geometry}
+
+\setlength{\parindent}{0pt}     % Paragraph indentation 
+\setlength{\parskip}{1em}       % Vertical space between paragraphs
+
+\usepackage{graphicx}       % Required for including images
+
+\usepackage{fancyhdr}       % Required for customizing headers and footers
+
+\fancypagestyle{firstpage}{%
+	\fancyhf{} % Clear default headers/footers
+	\renewcommand{\headrulewidth}{0pt} % No header rule
+	\renewcommand{\footrulewidth}{1pt} % Footer rule thickness
+}
+
+\fancypagestyle{subsequentpages}{%
+	\fancyhf{} % Clear default headers/footers
+	\renewcommand{\headrulewidth}{1pt} % Header rule thickness
+	\renewcommand{\footrulewidth}{1pt} % Footer rule thickness
+}
+
+\AtBeginDocument{\thispagestyle{firstpage}} % Use the first page headers/footers style on the first page
+\pagestyle{subsequentpages} % Use the subsequent pages headers/footers style on subsequent pages
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	FIRST PAGE HEADER
+%----------------------------------------------------------------------------------------
+
+%\includegraphics[width=0.4\textwidth]{UWtwoline_H_Botany_black.png} %Logo
+
+%\vspace{-1em} % Pull the rule closer to the logo
+
+%\rule{\linewidth}{1pt} % Horizontal rule
+
+
+%----------------------------------------------------------------------------------------
+%	YOUR NAME AND CONTACT INFORMATION
+%----------------------------------------------------------------------------------------
+
+%\hfill
+%\begin{tabular}{l @{}}
+%	\today \\ % Date
+%	University of Wyoming\\
+%	Botany, Dept 3165\\
+ %   1000 E. University Ave\\
+ %   Laramie, Wyoming, 82071\\
+%\end{tabular}
+
+ % Vertical whitespace
+
+%----------------------------------------------------------------------------------------
+%	ADDRESSEE AND GREETING
+%----------------------------------------------------------------------------------------
+
+
+\bigskip % Vertical whitespace
+
+Dear Dr. Brett McClintock
+
+\mediumskip % Vertical whitespace
+
+%----------------------------------------------------------------------------------------
+%	LETTER CONTENT
+%----------------------------------------------------------------------------------------
+I'm writing concerning our manuscript, "Accounting for missing data in autoregressive models of ecological time series" (ECY25-0755), which recieved a . We have been working to adjust the analyses and the manuscript text to correspond to the thoughtful comments from the two anonymous reviewers and yourself, and plan to resubmit the revised manuscript for your consideration. In your decision letter, the deadline for resubmission was March 28, 2026, but we would like to request that this due date be extended to April 25, 2026. We have currently completed the majority of the additional analyses we planned to do, but, due to factors including the large number of coauthors directly involved in the analysis, no opportunities for in-person collaboration during the revision period, and limitations on access to computing resources, the process has taken longer than anticipated. Additional time will allow us to more comprehensively address the reviewer comments in our revised mansucript. 
+
+Sincerely,
+
+Alice E. Stears,  Melissa H. DeSiervo (co-first authors) \\
+Lauren G. Shoemaker, Topher Weiss-Lehman (co-last authors) \\
+and all other coauthors
+
+
+\vspace{25pt} % Vertical whitespace
+
+
+\end{document}

@@ -159,6 +159,11 @@ Note that the algorithms required to estimate standard error of parameter estima
 \textbf{Data Augmentation}: Data augmentation (DA) provides a model-based framework for estimating missing observations as well as the parameters of interest, but comes with the added benefit of standard errors for the estimates of all the unknown quantities by treating the missing observations as additional parameters to be estimated (Fig. 1 D). We fit the Gaussian AR(1) models with DA and Stan \citep{carpenter_stan_2017} by using the rstan \citep{rstan_package} and brms \citep{burkner2017brms} packages in R \citep{r_2021}. Data augmentation for the population model is not possible with Stan, however, due to the requirement of continuous parameter space for the Hamiltonian Monte Carlo (HMC) methods Stan uses to sample the posterior distribution (at least not without marginalizing out the discrete parameters, which proved intractable). Treating missing integer data as parameters was therefore not possible with Stan, and partially-known parameter vectors are not supported in JAGS. We therefore designed a Gibbs sampler with Metropolis updates for the log growth factor ($r$) and intra-specific competition coefficient ($\alpha$), and Gibbs sampling of any missing observations, $N_{t}^{(0)}$, conditional on $(r, \alpha, {\bf N}_{t-})$, where ${\bf N}_{t-}$ is the vector of abundances (both observed and unobserved) up to but not including time $t$. We used weakly informative Gaussian priors for $r$ and $\ln(\alpha)$ and fit the models using custom functions written in R. 
 
 
+\subsection*{Effects of Missingness versus Time Series Length}
+While our analyses indicate that increasing proportion of missing observations tends to decrease model accuracy and precision, we conducted an additional set of simulations to confirm that missingness itself rather than effective time series length is the underlying cause of this decline in model performance. We simulated 1000 time series of real-valued data following the simulation methods described in "Methods: Real-valued time series" in the main text. The length of these time series varied from 100 to 200 by increments of 10, such that there were 100 time series of each length. We then introduced MCAR missingness without autocorrelation so that there were 100 non-missing observations in each of the 1000 time series, resulting in time series with proportions of missing data between 0 and 50\%. We were then able to use these 1000 time series, each with different amounts of missingness but the number of non-missing observations, to disentangle the effects of missingness and sample size on model performance. 
+
+We fit models to each simulated time series using each of the missing data approaches for real-valued time series that we described above and in the main text (Data Augmentation (DA), the Kalman Filter (KF), Multiple Imputation (MI), complete case data deletion and simple data deletion). Note that we were not able to use MI for simulated time series with no missing data, since that method requires missing observations. Then, again following the methods described in the main text, we calculated median error and absolute median error of parameter recovery as well as coverage for models fit with each missingness approach at each amount of missingness (Fig. \ref{fig:SampleSizeAnalysis}). This analysis indicates that the amount of missing data does not have a very strong impact on models' ability to recover the $\beta$ parameters, as we also saw in our analysis described in the main text (Fig. 2). However, missingness does have a strong effect on the ability of certain missing data approaches to effectively recover the autoregressive parameter $\phi$. Missing data has a particularly strong negative impact on the ability of MI to recover $\phi$ with precision and accuracy. Complete case data deletion and simple data deletion also are negatively impacted by missingness, although not as strongly as MI. DA and KF, however, are able to recover estimates of $\phi$ with low median error, low median absolute error, and appropriate coverage across all amounts of missing data.    
+
 \printbibliography
 
 %\bibliographystyle{ecology}
@@ -174,15 +179,36 @@ Note that the algorithms required to estimate standard error of parameter estima
  \end{figure}
 
  \begin{figure}
-     \noindent\includegraphics[width = 0.85\textwidth]{Figures/MockedUpFigures/heatmap_GaussianMCAR_all.png}
+     \noindent\includegraphics[width = 0.85\textwidth]{Figures/NewFiguresForRevision/simGaussData_MCAR_heatmap.png} %{Figures/MockedUpFigures/heatmap_GaussianMCAR_all.png}
      \caption{Median error of parameter recovery, median absolute error, and model coverage of $\phi$ and $\beta$, depending on the proportion of missing data and autocorrelation in missingness for each of five missing data approaches, using simulated, real-valued datasets with data missing completely at random (MCAR).}
      \label{fig:GaussianMCARheatmapALL}
  \end{figure}
 
   \begin{figure}
-         \noindent\includegraphics[width = 0.85\textwidth]{Figures/MockedUpFigures/heatmap_PoissonMCAR_all.png}
+         \noindent\includegraphics[width = 0.85\textwidth]{Figures/NewFiguresForRevision/simPoissData_MCAR_heatmap.png}%{Figures/MockedUpFigures/heatmap_PoissonMCAR_all.png}
      \caption{Median error of parameter recovery, median absolute error, and model coverage of $\alpha$ and $r$, depending on the proportion of missing data and autocorrelation in missingness for each of five missing data approaches, using simulated time series of counts with data missing completely at random (MCAR). Note that coverage is not shown for the Expectation Maximization approach, since most implementations of this method do not include estimates of standard error.}
      \label{fig:PoissonMCARheatmapALL}
+ \end{figure}
+
+   \begin{figure}
+         \noindent\includegraphics[width = 0.8\textwidth]{Figures/NewFiguresForRevision/sampleSizeAnalysisFigures.png}
+     \caption{Parameter recovery metrics for models fit to simulated time series of real-valued data, across an increasing proportion of values missing completely at random (MCAR). These simulated data sets increase in length as missingness increases, so that there are 100 non-missing values in each time series. These figures show the median error of parameter recovery (A), absolute median error of parameter recovery (B), and 95\% coverage of parameter estimates (C), resulting from models fit using five missing data approaches (colors). The coverage panel shows the proportion of model runs where the 95\% confidence interval of a parameter estimate includes the true simulation parameter (dotted line at 0.95). Each point in each panel shows the median value of error or coverage across all models fit to simulations that used the same missing data approach and had the same amount of missing data. Models were not fit to data with no missing values using the MI method, since it requires at least one missing observation. In these simulations, the introduced missingness was not autocorrelated. 
+     }
+     \label{fig:SampleSizeAnalysis}
+ \end{figure}
+
+   \begin{figure}
+         \noindent\includegraphics[width = 0.8\textwidth]{Figures/NewFiguresForRevision/RMSE_PoissSim_ForecastsFromNearK.png}
+     \caption{RMSE of forecasts made using a model fit to the same simulated time series of count data used in Fig. 4 in the main text. Forecasts were made for the final 12 observations, using models fit to the previous 48 observations. Each point shows the median RMSE across all forecasts with a given missing data approach (indicated by color), in a given level of proportion of missing data (0.2 $\pm$ 0.05, 0.4 $\pm$ 0.05, 0.6 $\pm$ 0.05), and with a given type of missingness (missing completely at random (MCAR) with autocorrelation of 0.45 $\pm$ 0.2 or missing not at random (MNAR)). Error bars indicate the inter-quartile range. Point shape corresponds to the number of model runs in a bin of missingness. 
+     }
+     \label{fig:RMSE_poissNearK}
+ \end{figure}
+
+   \begin{figure}
+         \noindent\includegraphics[width = 0.8\textwidth]{Figures/NewFiguresForRevision/poisson_sim_K_figure.png}
+     \caption{
+     }
+     \label{fig:K_ests_poiss}
  \end{figure}
  
 %\subsection{Bias due to endogeneity}

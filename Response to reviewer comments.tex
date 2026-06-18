@@ -1,106 +1,207 @@
 \documentclass{article}
+\usepackage{xcolor}
+\usepackage[utf8]{inputenc}
 
+ 
+\usepackage{geometry}                		
+\geometry{verbose,letterpaper,tmargin=2.54cm,bmargin=2.54cm,lmargin=2.54cm,rmargin=2.54cm}   % 1 inch margins for Ecology   
+
+
+\usepackage{multirow}
+\usepackage{graphicx}		
+\graphicspath{ {c:} }
+\usepackage{setspace}
+\usepackage[version=4]{mhchem}
+\doublespace
+\usepackage{siunitx}
+%\usepackage[authoryear, round]{natbib}
+\usepackage[
+  backend=biber,
+  style=apa,
+  maxcitenames=2,
+  natbib=true]{biblatex}
+\addbibresource{citations.bib}
+
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{amsfonts}
+\usepackage{gensymb}
+\usepackage[sharp]{easylist}%makes nice outlines.  Use # for symbol
+\usepackage{blkarray}
+\usepackage{lastpage}
+\usepackage{times} % times new roman%
+\usepackage{lineno} % add line numbers%
 \begin{document}
 
-\section{Response to the editor}
+%\bigskip % Vertical whitespace
+
+\noindent Dear Dr. Kathy Cottingham and \textit{Ecology} Editorial Board,
+
+\bigskip % Vertical whitespace
 
 
-I found that this is clearly a "guideline" or "best practices" type paper.  I would very much like to see that more clearly reflected in the title, to drive more reader traffic to your paper (and thus the Statistical Innovations article type and Ecology).
+\noindent Thank you for the opportunity to submit a revised version of our manuscript  for consideration as a Statistical Innovations article in \textit{Ecology}. We greatly appreciate the thoughtful comments from both reviewers and the editor and have worked hard to fully address each point. In particular, we detail several of the biggest revisions below.
 
-Response: We have revised the title as “Best practices for handling missing data in autoregressive models of ecological time series”
+\bigskip
+
+\begin{itemize}
+    \item We have added an assessment of forecasting performance to our simulated data analyses to match the forecasting assessment we perform with empirical data. 
+    \item We have updated our analyses of time series of counts to include missing not at random (MNAR) data, matching our analyses of real-valued data.
+    \item We have included more details on our methods for model selection and validation for the empirical analyses. As part of this process, we have also switched the empirical dataset for our time series of counts to achieve a better match between our statistical model and the empirical data.
+    \item We now include additional simulations to directly explore two ways in which missing data might impact model performance: by reducing the total number of data points and by interrupting the autoregressive structure of the time series. This new analysis helps clarify the mechanism by which model-based approaches to handling missing data tend to perform better than data processing approaches.
+    \item We have made substantial alterations and additions to our discussion section in line with the suggestions from both reviewers and to reflect the changes listed above.
+\end{itemize}
+
+\noindent Below, we provide a detailed, point-by-point response to all comments from the editor and both reviewers. We include the original comments with our responses included below in \textcolor{blue}{\textit{blue italic}} text.
+
+\bigskip
+
+\noindent We believe our manuscript has been greatly improved by this process and we hope you agree. Thank you for considering our manuscript for publication in \textit{Ecology}.
+
+\bigskip
+
+\noindent Sincerely, 
+
+\noindent Alice E. Stears,  Melissa H. DeSiervo (co-first authors) \\
+Lauren G. Shoemaker, Christopher Weiss-Lehman (co-last authors) \\
+and all other coauthors
 
 
+\clearpage
 
 
+\section{Response to the subject-matter editor}
+Both the reviewers and I believe this is an important and timely topic that warrants the attention of ecologists. Reviewer 1’s comments were generally positive. They provide several suggestions on how the organization of the paper could be improved, most notably by separating the simulation study methods and results from those of the empirical studies. I also agree with Reviewer 1’s suggestion of including some MNAR simulation scenarios for count data as this is a very common (and often neglected) problem for ecologists.
 
+\noindent \textcolor{blue}{\textit{We thank the editor for this positive assessment of our topic and the summary of Reviewer 1's major suggestions. We have updated our manuscript to reflect these suggestions, in particular by updating our analyses of our simulated data and including an assessment of MNAR data in our scenarios for count data. Please see our full response to Reviewer 1 for complete details.}}
+
+\bigskip
+
+\noindent Reviewer 2 was somewhat less enthused and had several major concerns, including the novelty of the work, the validity of bias comparisons when not controlling for sample size or optimization method, and superficial treatment of the results that does not explain the underlying causes of performance differences.
+
+\noindent \textcolor{blue}{\textit{We appreciate Reviewer 2's thoughtful comments on our manuscript and have worked hard to address them. In particular, we have included a new analysis explicitly controlling for the effects of missingness on model performance via disruption of the autoregressive structure of time series versus simply by reducing the size of the datasets. We have also worked to update our discussion to include a deeper treatment of our results and their implications for ecologists dealing with missing data. Please see our full response to Review 2 for complete details.}}
+
+\bigskip
+
+\noindent Given many of the conclusions are already well-established in the literature and the fact that missingness is pervasive in ecology, I suggest placing more emphasis on explaining why some methods perform better than others, explaining why none of the methods performed well with MNAR, and providing more guidance (or even an example) on how an ecologist might go about identifying and modeling mechanisms of missingness (including MNAR). I also suggest including an MNAR method (such as that described in L327-329) in the simulation study to demonstrate how it performs with MNAR data. I believe this will help broaden the scope of the manuscript and appeal to a wider audience.
+
+\noindent \textcolor{blue}{\textit{We thank the editor for these suggestions and have used them as guide posts in revising our manuscript in accordance with both reviewers' comments. We provide more details below in our individual responses to specific reviewer comments, but we first want to address the editor's suggestion for including an MNAR method such as described in lines 327-329 of our original manuscript. We have now added a brief description of an empirical example in which ecologists modeled the mechanism of missingness for seal availability and sighting data (lines XXX). As this example demonstrates, this approach can be difficult and requires \textit{a priori} knowledge of the processes driving MNAR data so additional data on the correct covariates can be collected. Given that, we have opted not to include a worked demonstration of such a method and rather point interested readers to the paper developing such a method for seal availability. We have also updated our descriptions of these ideas in the manuscript (lines XXX) to more accurately reflect the steps involved in such an approach.}}
+
+\section{Response to the ``Statistical Innovation" Section editor}
+I found that this is clearly a ``guideline" or ``best practices" type paper.  I would very much like to see that more clearly reflected in the title, to drive more reader traffic to your paper (and thus the Statistical Innovations article type and Ecology).
+
+\noindent \textcolor{blue}{\textit{We thank the editor for this suggestion and agree that our original title did not clearly reflect this aspect of our manuscript. We have updated the title to be ``Best practices for handling missing data in autoregressive models of ecological time series."}}
 
 \section{Response to reviewer 1}
+\textbf{General Comments}
 
-1 General Comments
+\noindent Stears and colleagues provide an overview of statistical approaches used to handle missing data and investigate how they perform on real and simulated ecological time series. They find that most approaches provide reasonable inference on regression covariates when data are missing completely at random, but that performance is substantially degraded when the missingness process is related to a feature in their data. They also found that some approaches (e.g., data augmentation) consistently outperform naive approaches such as data deletion.
 
-I thought that the manuscript was mostly well written and that it represented competent research. The topic in general is understudied and worth bringing to the attention of ecologists. Basically, a paper like this seems like a good idea. I was distracted by a few things which could hopefully be addressed in a revision.
-First, the organization seemed a little strange to me (see Specific Comments).
+I thought that the manuscript was mostly well written and that it represented competent research. The topic in general is understudied and worth bringing to the attention of ecologists. Basically, a paper like this seems like a good idea. 
 
-Response: 
+\noindent \textcolor{blue}{\textit{We thank the review for this apt summary of our key results and the positive assessment of our research. We appreciate that the reviewer agrees that the paper represents a positive contribution to the literature and have endeavored to address all their suggestions for improvement (see below).}}
 
-Second, I was not sure why they chose to discard low and high observations in their MNAR analyses. There didn’t really seem to be a justification presented for this.
+\bigskip
 
-Response: 
+\noindent I was distracted by a few things which could hopefully be addressed in a revision. First, the organization seemed a little strange to me (see Specific Comments).
 
-Finally, I was some-what disappointed that MNAR was only implemented for the Gaussian data. Although the decision to conduct monitoring may typically be independent of underlying population size, this isn’t always the case. For instance, consider the case of community science, where volunteers may be more likely to go out and collect data if they are likely to see animals. Or non-census data, such as number of foraging attempts in a day as obtained via biotelemetry devices. I think there are plenty of cases where you could have MNAR going on when collecting Poisson-like data. Of course, the Ricker model won’t make any sense for a general time series outside of annual abundance. 
+\noindent \textcolor{blue}{\textit{We appreciate the reviewer's suggestions for improved organization in our manuscript and have endeavored to incorporate them in our revised manuscript (see responses to specific comments).}}
 
-Response: 
+\bigskip
 
-To put these on a similar footing to the Gaussian data, you could think of a model like
-yi ∼ Poisson(μi)
-μi = exp(xi β + ρ(yi − μi−1))
+\noindent Second, I was not sure why they chose to discard low and high observations in their MNAR analyses. There didn’t really seem to be a justification presented for this.
 
-Though, I suspect it might have a positive mean trend in absence of data so might not be very good for forecasting.
+\noindent \textcolor{blue}{\textit{Thank you for pointing this out. We inadvertently omitted the reasoning for this decision but have now updated the methods to include it. Specifically we added the following text: ``These types of MNAR scenarios, where the value of the variable itself is related to its probability of missingness, often occur in sensor data similar to our GPP example. For example, ..." (Lines XXX)}}
 
-Response: 
+\bigskip
 
-2 Specific comments
-The methods and results section are formatted differently than I usually approach these types of papers, in which I would typically have a “Simulation studies” section and then one or more “Example” sections where I analyze real data. I think that’s the usual way people tend to do things. In this submission, the sections are divided by the support of the parameter space (real valued vs. nonnegative integers). Not to say this is wrong, and perhaps there are some efficiencies that can be gained this way. But, worth thinking about.
+\noindent Finally, I was somewhat disappointed that MNAR was only implemented for the Gaussian data. Although the decision to conduct monitoring may typically be independent of underlying population size, this isn’t always the case. For instance, consider the case of community science, where volunteers may be more likely to go out and collect data if they are likely to see animals. Or non-census data, such as number of foraging attempts in a day as obtained via biotelemetry devices. I think there are plenty of cases where you could have MNAR going on when collecting Poisson-like data. Of course, the Ricker model won’t make any sense for a general time series outside of annual abundance. To put these on a similar footing to the Gaussian data, you could think of a model like
 
-Response: 
+\begin{center}
+\begin{subequations}
+    y_i \sim Poisson(\mu_i) \\
+    \mu_i = exp(x_i \beta + \rho(y_i-\mu_{i-1})
+\end{subequations}
+\end{center}
 
+\noindent Though, I suspect it might have a positive mean trend in absence of data so might not be very good for forecasting.
 
-3 Line-specific comments and minor edits
+\noindent \textcolor{blue}{\textit{This is a good point and we thank the reviewer for raising it. While we initially considered the type of MNAR data we implemented for real-valued data to be unlikely in scenarios consisting of population counts, we had not thought of the possibility raised by the reviewer. As such, we have now updated our analyses to include MNAR data for our simulated and empirical count data. In doing so, we have included a rationale similar to the reviewer's suggestion of volunteers contributing to community science projects being prone to skip data collection excursions if they are unlikely to observe a given species (Lines XXX). Additionally, we agree that there are alternative model formulations which could be applied to Poisson-distributed data, but we have opted to keep the Ricker model structure for several reasons. First, while a statistical model like that suggested by the reviewer would be more similar to the model used for our real-valued data, we were specifically interested in the strongly autoregressive nature of a population dynamic model like the Ricker. As previous population size is the key (sometimes only) covariate in such a model, we hypothesized it could be uniquely susceptible to missing data and wished to explore that. Second, in incorporating more details and analysis on robust model validation for our empirical analyses (see responses to Reviewer 2), we opted to switch our empirical count data to a time series of protist abundances from a microcosm system. For this new data, the Ricker model is a clear fit and the absence of additional environmental and biotic complexities allows a more robust assessment of the effect of missing data in population dynamic models. We have attempted to make this reasoning more clear in the updated text (Lines XXX)}}
+
+\bigskip
+
+\noindent \textbf{Specific comments}
+
+The methods and results section are formatted differently than I usually approach these types of papers, in which I would typically have a ``Simulation studies” section and then one or more ``Example” sections where I analyze real data. I think that’s the usual way people tend to do things. In this submission, the sections are divided by the support of the parameter space (real valued vs. nonnegative integers). Not to say this is wrong, and perhaps there are some efficiencies that can be gained this way. But, worth thinking about.
+
+\noindent \textcolor{blue}{\textit{We agree with the reviewer that dividing the methods section between ``simulation" and ``empirical" or ``example" sections is a typical approach for papers which include both. In fact, when first writing the manuscript, we attempted to use this type of structure. However, in doing so we found that it hindered the flow of the methods unnecessarily as our primary distinctions are between real-valued and count data and the different approaches available for handling missing data. In that context, the simulation analyses and empirical analyses are both different ways in which to evaluate the performance of missing data methods for each data type, so we feel it makes the most sense to combine those analysis types. Indeed, in response to Reviewer 2 (see below), our simulation and empirical analyses have become even more intertwined. As such, we have opted to keep our original structure for the methods and results section. However, we have endeavored to clarify the writing throughout to maximize the efficiencies of this structure as the reviewer suggests.}} 
+
+\bigskip
+
+\noindent \textbf{Line-specific comments and minor edits}
 
 1. Lines 50-51. I’m not sure this depiction of MAR is quite right. If the covariate related to missingness also impacts the observation, you definitely could have the case that the probability of missingness is correlated with the response values. I think the main thing you need here is analagous to conditional independence (i.e., given knowledge of the covariate, you can adjust for it)
 
-Response: 
+\noindent \textcolor{blue}{\textit{Thank you for catching this. We agree this explanation was poorly phrased. We have updated the text to read ``Data are MAR when the probability of missingness is conditional on one or more observed predictor variables (e.g., a buried soil temperature sensor malfunctions when soil moisture is high, causing wetter study sites to have more missing soil temperature observations)" (Lines XXX).}}  
+
+\bigskip
 
 2. Line 72. Using second person reads a bit strange here
 
-Response: 
+\noindent \textcolor{blue}{\textit{Agreed. We have updated the text accordingly (Lines XXX).}}   
+
+\bigskip
 
 3. Line 95. It took me a second to realize that this was a subheading for the Gaussian-distributed part of the study. I’d suggest aligning the subheading titles better with the text so that readers find something that they’re expecting. Also I can’t remember the subheadings format in Ecology, but I’m guessing it’s different from bold text with a colon.
 
-Response: 
+\noindent \textcolor{blue}{\textit{We thank the reviewer for this suggestion and have updated all our subheading titles to be italic text and on their own line, matching the format of recent \textit{Ecology} articles.}}  
+
+\bigskip
 
 4. Eqn 1a. It’s a little pedantic, but to complete the specification here the authors might consider providing the case for Y1, for which Yt−1 is undefined.
 
-Response: 
+\noindent \textcolor{blue}{\textit{This is a good point and we have now updated this equation to include the specification of $Y_1$ for our simulations. We have similarly updated equation 2 to include a specification for $N_1$ in those simulations.}} 
+
+\bigskip
 
 5. Lines 2a, 2b. Not that anything is wrong, I’ll just note that this is a different type of setup than an AR1 model, in that the errors are not autocorrelated
 
-Response: 
+\noindent \textcolor{blue}{\textit{We agree that this is not an AR1 model. Instead, we chose this model as representative of the broad class of population dynamic models in which the key covariate in the model is population size in the previous time point. In this way, though the errors are not autocorrelated, it represents a distinct type of autoregressive process that has broad relevance to population and community ecology and could be uniquely vulnerable to missing data. We have worked to update the text to more clearly describe our rationale in choosing this model.}}
 
+\bigskip
 
 6. Lines 150-151. These autocorrelation values are for the binary missingness process, correct? When you are generating data with eqn 1a, what values of φ were used?
 
-Response: 
+\noindent \textcolor{blue}{\textit{That is correct. The autocorrelation values are referring to the autocorrelation in the probability of individual data points being missing. We have updated the text to clarify this point. We have also updated the text to include the details on parameter values used in our simulations for both the real-valued and count data.}} 
+
+\bigskip
 
 7. Lines 155-156. I’m not really understanding the motivation for this type of missingness. It seems more likely that (a) the missingness process will still be stochastic at some level, and (b) that you’ll tend to miss data on one side or the other, as with sensor failures in an extreme environment. It’s going to be hard to cover all your bases here given all the different possibilities, but it may be helpful to explain why you went this route.
 
-Response: 
+\noindent \textcolor{blue}{\textit{We agree that the previous version of our manuscript omitted a clear justification for this choice. We have now updated the text (as described in our response to the reviewer's general comment) to describe why we chose this scenario. We hope this choice is now clearer with our added justification.}} 
 
+\bigskip
 
 8. Lines 250-251. I think in a results section it would be better to focus on defined quantities, e.g. bias in parameter estimates, rather than speaking of “misleading parameter estimates”
 
-Response: 
+\noindent \textcolor{blue}{\textit{We have now changed the wording here to use more precise terms.}} 
 
+\bigskip
 
 9. Line 266 “reversedcafor”
 
-Response
+\noindent \textcolor{blue}{\textit{Thank you for catching this. The typo has been fixed.}}
+
+\bigskip
 
 10. Line 266. I’m sorry I may have missed it, but what are the authors using for a point estimate for DA - posterior mode/median/mean?
 
-Response: 
+\noindent \textcolor{blue}{\textit{Thank you for catching this omission. We used the mean of the posterior as a point estimate for DA, and have clarified the methods to explain this (XXX)}}
 
 
-11. Discussion. Although the focus was on a specific application with binary responses, Conn et al. (Meth. Ecol. Evol. 3: 1039-1046) also investigated consequences of missing data on ecological time series models. That work tried to explicitly model
-the missingness process, which may be another way to proceed in certain situations.
+11. Discussion. Although the focus was on a specific application with binary responses, Conn et al. (Meth. Ecol. Evol. 3: 1039-1046) also investigated consequences of missing data on ecological time series models. That work tried to explicitly model the missingness process, which may be another way to proceed in certain situations.
 
-Response: 
-
-
-
-
-
-
+\noindent \textcolor{blue}{\textit{Thank you for pointing us to this paper which we were unaware of. We agree it provides excellent additional context and a unique approach for dealing with MNAR data in ecological settings. We have now incorporated it in our discussion of the pitfalls of MNAR data and possible methods for accounting for it (Lines XXX).}} 
 
 \section{Response to reviewer 2}
 
@@ -109,25 +210,31 @@ This paper provides a useful comparison of missing data approaches for autoregre
 
 However, the study makes simplifying assumptions that may limit its generalizability and applicability to empirical data. For example, the analyses assume the process model is known and do not explicitly account for observational noise. These assumptions are reasonable for controlled simulations but may reduce applicability to ecological time series, which can potentially be noisy, complex, and nonlinear (see Hsieh et al. 2005 doi: 10.1038/nature03553, Clark and Luis 2020 doi: 10.1038/s41559-019-1052-6, Sugihara 1990 doi: 10.1038/344734a0). Given that the study focuses on simple models and controlled simulations and does not address some complexities of real-world ecological systems, it may be of greater interest to a specialized journal in ecological modeling or statistics.
 
-Response: 
+\noindent \textcolor{blue}{\textit{We thank the reviewer for this assessment of our original submission. In our responses below (as well as to Reviewer 1 and the editors) and the corresponding revisions to the paper, we have striven to make clear the purpose of the paper as a guide to best practices for missing data in ecological studies, why we believe the assumption about the process model is less limiting than the reviewer suggests, and how the results can apply to real-world ecological data. We hope we can convince the reviewer on these points.}}
 
+\bigskip
 
 Major Strengths:
-- Comprehensive demonstration of established missing data approaches for parameter estimation in two different AR models.
-- Application to both simulated and empirical datasets.
-- Clear organization and generally accessible writing style.
+\begin{itemize}
+    \item Comprehensive demonstration of established missing data approaches for parameter estimation in two different AR models.
+    \item Application to both simulated and empirical datasets.
+    \item Clear organization and generally accessible writing style.
+\end{itemize}
 
-Response: 
+\noindent \textcolor{blue}{\textit{We thank the reviewer for this assessment of the strengths of our original submission. We have endeavored to keep these at the forefront of our revision as we also address the weaknesses identified below.}} 
 
+\bigskip
 
 Major Weaknesses:
-- Some conclusions are well-established in the literature.
-- Analyses do not control for sample size or optimization method in simulated time series, making interpretation of parameter estimation bias difficult.
-- Discussion provides superficial interpretation of results without exploring underlying causes of performance differences or addressing key limitations such as model misspecification effects on method performance.
+\begin{itemize}
+    \item Some conclusions are well-established in the literature.
+    \item Analyses do not control for sample size or optimization method in simulated time series, making interpretation of parameter estimation bias difficult.
+    \item Discussion provides superficial interpretation of results without exploring underlying causes of performance differences or addressing key limitations such as model misspecification effects on method performance.
+\end{itemize}
 
+\noindent \textcolor{blue}{\textit{As we outline in more detail below, we have worked to address each of these weaknesses identified by the reviewer. Briefly, we have emphasized our paper's goal as a guide to best practices and a comparison among existing methods. We have additionally added a new analysis to our manuscript explicitly controlling for sample size so that we can compare the degree to which different methods are affected by the disruption of the autoregressive structure caused by missing data, the reduction in sample size caused by missing data, or both. Finally, we have worked to update our discussion with more robust explorations of the patterns found in our results, their implications for ecological practitioners, and more integration with the existing literature.}} 
 
-Response: 
-
+\bigskip
 
 Specific Comments
 
@@ -135,90 +242,76 @@ Introduction
 
 Lines 35-36: Definition is vague; please provide a citation.
 
+\noindent \textcolor{blue}{\textit{We have attempted to clarify the definition and added an appropriate citation.}} 
 
-Response: 
-
+\bigskip
 
 Methods
 
 Line 124: Cite both the original Ricker model (Ricker 1954) and the Poisson Ricker model (Melbourne and Hastings 2008).
 
+\noindent \textcolor{blue}{\textit{We have updated the citation.}} 
 
-Response: 
-
+\bigskip
 
 Lines 176-178: Clarify how the statistical model is fit for each method (e.g. least-squares, maximum likelihood). Without this, it’s difficult to separate the effects of missing data handling on parameter estimation from the optimization or estimation approach.
 
-
-Response: 
-
+\noindent \textcolor{blue}{\textit{Thank you for pointing out this omission. We used maximum likelihood to estimate parameters for all models except for those using the data augmentation approach, which used a Bayesian estimation approach. We have updated the text to reflect this information (Lines XXX)}} 
 
 Line 214: Specify that missing values are introduced only into the GPP time series, not covariates. This is stated in the discussion (line 362), but it should also be stated here.
 
+\noindent \textcolor{blue}{\textit{We thank the reviewer for pointing out this potential source of confusion. As this point is relevant for all our missing data approaches, we have opted to add clarifying text to the beginning of our Methods section to ensure readers understand our approach. Specifically, we now include the following text: ``Throughout the manuscript, we use ``missing data" or ``missingness" to specifically refer to missing values of the response variable; we do not consider the case of missing covariate data." (Lines XXX)}} 
 
-Response: 
-
+\bigskip 
 
 Line 217: Clarify whether forecasts are one-step-ahead or multi-step recursive forecasts.
 
-
-Response: 
-
+\noindent \textcolor{blue}{\textit{We thank the reviewer for identifying this omission. For all approaches applied to real-valued data, except for data augmentation, we used finite history prediction to generate forecasts, which is the default method used for predictions made with the predict.Arima() R function from the base R \texttt{stats} package. For the data augmentation method with real-valued data, we used multi-step recursive forecasts. We also used multi-step recursive forecasts for all methods applied to time series of counts. This information has been added to the text (lines XXX) }}
 
 Lines 187-225: Consider evaluating forecast skill for simulated data, and comparing parameter estimates from full vs. incomplete empirical datasets. This would make the results between the simulated and the empirical data more comparable. If you consider this to be unnecessary, explain why.
 
-
-Response: 
-
+\noindent \textcolor{blue}{\textit{We thank the reviewer for this suggestion, and have updated our analyses to include comparisons of forecast performance for simulated data with increasing amounts and types of missingness. We have included information about these additional analyses throughout the manuscript, and the results can be seen in Figures 5 and 6.}} 
 
 Lines 223-224: Results for autocorrelation in missing data for empirical time series are not shown; include them or explain omission.
 
-
-Response: 
-
+\noindent \textcolor{blue}{\textit{We do not include heatmaps similar to Figure 3 for the empirical time series because we do not evaluate parameter recovery for the empirical time series. Evaluation of parameter recovery is uniquely relevant for the simulated data, for which the true underlying paramters generating the data are known. For the empirical time series, however, there is no ``true" value with which to compare our estimates and so there is no meaningful way to evaluate parameter recovery for these time series.}}
 
 Results
 
 Line 227: Without controlling for sample size, bias could reflect fewer observations rather than method performance. Each trial should have the same number of observed data points as input to ensure that differences in parameter recovery can be unambiguously attributed to the method’s ability to handle data fragmentation rather than an effect of sample size.
 
-
-Response: 
-
+\noindent \textcolor{blue}{\textit{We thank the reviewer for raising this important question. We now report on an additional analysis, which we detail in the appendix, to address this question. We simulated time series of different lengths and then introduced increasing amounts of missingness such that the final datasets had the same number of non-missing observations. We then examined the effects of missingness on parameter recovery. We found that the results of this simulation corroborate the results in our main analyses: model-based approaches (DA and KF) recovered the autoregressive model parameter $\phi$ well across all amounts of missingness, but data processing approaches (both types of data deletion and MI) lost accuracy and precision as missingness increased. These results demonstrate a key mechanism behind the high performance of model-based approaches is their ability to directly incorporate the autoregressive structure of the time series. The loss of accuracy with increasing amounts of missing data in our main analyses seems to be primarily driven by reducing the amount of data rather than data fragmentation for these approaches.}}
 
 Line 232: DA/KF vs. MI comparison should note that DA/KF are given the true generating model in simulations, whereas MI is not, so this may be an unfair comparison.
 
-
-Response: 
-
+\noindent \textcolor{blue}{\textit{As we discuss in our response to the reviewer's comments on our discussion, we believe the comparison between these approaches is fair because the model-based approaches should always use a statistical model that has been validated such that it can recapitulate the key features of the data. Thus, even though these model-based approaches will not be using the ``true" model, they will be using a structure that inherently incorporates an appropriate degree of autoregressive structure which will aid them in handling the missing observations. Our new supplemental analysis reinforces this point. We know elaborate on this point in the discussion (lines XXX) as described in our responses below.}}
 
 Line 244: Subplots in Figure 3 may be mislabeled; verify against Appendix S1: Fig. S2 and Figure 2.
 
-
-Response: 
-
+\noindent \textcolor{blue}{\textit{Thank you for catching this error. We have fixed the panel labels in the updated version of the figure.}}
 
 Line 249: Include MNAR data figure similar to Appendix S1: Fig. S2 in supplement.
 
-
-Response: 
-
-
-Lines 253-255/260-262: Explain patterns of bias for ϕ, β, r, and α (e.g. why is the bias negative for ϕ and positive for β?), and why MNAR data shows more pronounced trends.
+\noindent \textcolor{blue}{\textit{We do not include a heatmap figure for MNAR data because we do not systematically alter autocorrelation in missingness with MNAR data in the same way we do for MCAR data. Given the way we implemented MNAR missingness, it would not be possible to have datasets with the same amount of missing values but different amounts of autocorrelation in missingness, since whether or not a value is missing depends on the values of the observation itself. As such, there is inadequate variation in autocorrelation of missingness for a given proportion of missing data to make a heatmap figure with MNAR data.}} 
 
 
-Response: 
+Lines 253-255/260-262: Explain patterns of bias for $\phi$, $\beta$, $r$, and $\alpha$ (e.g. why is the bias negative for $\phi$ and positive for $\beta$?), and why MNAR data shows more pronounced trends.
 
+\noindent \textcolor{blue}{\textit{We thank the reviewer for this suggestion and have now added text to further explain these patterns in bias. In short, $r$ and $\alpha$} display the patterns in bias they do because estimates of these parameters are known to correlate with each other when models do not have sufficient data to uniquely identify them. The model instead estimates combinations of $r$ and $\alpha$ that combine to yield the equivalent carrying capacity. We know demonstrate this in a supplemental figure and describe it briefly in our discussion (lines XXX). For the $\beta$ parameters, while the bias is technically positive overall, the scale is very low and in fact represents a bias that is very close to 0. We have now added some brief language emphasizing the quite low levels of bias and error in the $\beta$ estimates compared to the other parameters (lines XXX). Finally, our new, supplemental analysis helps demonstrate that the negative bias in $\phi$ estimates is due to a reduced ability to identify the autoregressive structure in the time series with increasingly fragmented data, thus producing underestimates of the autoregressive parameter. The data processing approaches are especially vulnerable to this as seen in our new supplemental figure. We have updated our discussion to elaborate on this point (lines XXX).}
 
 Line 275-276: Discuss why RMSE changes little with high missingness in the MCAR data, and mention the baseline predictive performance of the AR(1) model.
 
+\noindent \textcolor{blue}{\textit{We thank the reviewer for identifying this omission. We have added text to the discussion explaining that, in models of real-valued data, this is likely due to the fact that covariates contribute substantially to model predictions, so when there are no missing values in the covariates (as is the case in all analyses in this manuscript), the model is still able to generate good predictions by relying primarily on the explanatory power of the covariates. For example, in lines XXX, we now state: "This is likely because the covariates are strong drivers of the response values, so while the autoregressive component of the model may struggle to fit well with missing response values, explanatory power from covariates leads to relatively accurate forecasts."}} 
 
-Response: 
+\noindent \textcolor{blue}{\textit{However, the fact that the forecast RMSE from models fit to simulated count data is largely unimpaired by increasing MCAR data is likely due to a different reason, since there are no environmental covariates in this model. The simulated count datasets are close to dynamic equilibrium, which can contribute to poor identifiability of model parameters. Specifically, the $r$ and $\alpha$ parameter estimates covary so that, even when they are poorly estimating the individual parameters, they correspond to the same estimated carrying capacity (defined as $\frac{r}{\alpha}$ in this parameterization of the Ricker model). This relationship means that, though the individual parameter estimates can be increasingly poor, forecasted values when the population is near dynamic equilibrium remain relatively accurate. To demonstrate this point, we have adjusted our approach to forecasting with models fit to the simulated count data, and instead of generating forecasts with the last observation as the starting value, we now generate forecasts starting from low density (a population size of 5). The RMSE figure shown in Figure 6C in the main text now shows RMSE from these simulations which do show more variation in RMSE across methods and as missingness increases. We keep the forecasts from high starting values as a supplemental figure (Fig. S5) for interested readers. We have also added a figure to the appendix demonstrating the relatively consistend estimates of carrying capacity ($\frac{r}{\alpha}$) even as the individual parameter estimates become increasingly poor with more missing data (Fig. S6). We have added text to the methods, results, and discussion explaining this phenomenon, as well as the change we made to Figure 6.}}
 
 
 Line 277-280: The fact that all the methods performed similarly here, whereas we saw more of a difference between their performance in the simulated data, could also have to do with the model specification problem rather than the importance of environmental covariates vs. autoregressive structure. In the simulated data, we know the generating equations and therefore the model-based approaches perform very well compared to approaches that are not explicitly given the generating equations (MI). In real-world data, we are less certain of the generating equations—this may be important to include in the discussion of applying these methods to real-world data. 
 
 
-Response: 
+\noindent \textcolor{blue}{\textit{We thank the reviewer for this suggestion and for bringing up the potential effect of using the generative model in our model-based approaches. Below, we provide a more detailed response to the reviewer's concerns regarding model-based approaches using the generative model. However, in response to suggestions from Reviewer 1, we have now added forecasting evaluation to our simulated data and we believe this new analysis supports our assertion that forecasting performance is more impacted by the environmental covariates than the autocorrelation parameter. Specifically, the analyses of our simulations suggest that estimates of $\phi$ are strongly affected by missing data and the particular method used to account for the missing data. However, $\beta$ estimates are very similar among all methods of accounting for missing data and only become strongly impacted under MNAR data. The new forecasting analysis for our simulated data shows that, on average, forecasting performance is very similar across missing data methods, mirroring the accuracy of $\beta$ parameter recovery. This leads to two key conclusions. First, that the environmental covariates ($\beta$) are primarily responsible for driving forecasting performance. If the model-based approaches were benefiting from using the true, generative model, we would expect those forecasts to outperform forecasts from the other approaches, which we do not see. Second, that the variation observed among methods for our empirical data more likely reflects stochastic variation unique to the particular dataset rather than consistent performance differences among the methods. As such, we have adjusted our language here and in the discussion to avoid over-interpreting the differences among the empirical forecasting performances. We have also updated the discussion to include a section on the role of the generative model and why we contend these mode-based approaches should maintain a similar benefit in empirical applications (see response below for more details).}} 
+
+\bigskip 
 
 
 Discussion
@@ -226,45 +319,36 @@ Discussion
 Line 291: The discussion should address why the model-based approaches (KF, DA) did better than the data-driven approaches (MI) in both the MCAR real-valued and MCAR count time series, but not in the empirical data. I suspect this could be because the model-based methods are explicitly given the model that generated the data, where as MI is not given the model when imputing values. From the simulated data results, it seems that model-based methods are superior—but how relevant is this for real-world data where we are less certain of the generating equations? We don’t see the same pattern of performance differences in the empirical data. The discussion should mention this model misspecification problem as a caveat when applying these methods to real-world data. The discussion should also include a paragraph about the autocorrelation in missingness and why it seemed to affect some methods more than others. For instance, uncertainty propagates in the Kalman filter if it is predicting values recursively into a large gap, but the Kalman filter results didn’t seem to be affected much by the autocorrelation in missingness—this is surprising.
 
 
-Response: 
+\noindent \textcolor{blue}{\textit{We thank the reviewer for bringing up this point as we agree it is important and underexplored in our original manuscript. We now include this caveat in our discussion, but we believe our updated analyses and context for the manuscript demonstrate that the model-based approaches should still maintain their relatively high performance even in contexts when the true generative model is unknown. First, as referenced above, the new forecasting analyses added to the simulations demonstrate that some of the discrepancy in empirical forecasting performance of real-valued data is more likely due to stochastic variations in the dataset rather than consistent differences among methods. For count data, much of the variation seems to stem from the relative differences in the model’s ability to forecast population dynamics when abundances are low versus when they are close to their carrying capacity. We now discuss the implications of our simulated forecasts thoroughly in the discussion to make these points and their implications clear. Second, we argue that when these approaches are applied to empirical data, the model-based approaches should still have a similar advantage. Though the true generative model is unknown, thorough model development and validation is a critical step in any analysis pipeline which should result in the identification of a statistical model that can reasonably recapitulate the key features of the data. As such, while the model used by model-based approaches will not be the true generative model, it should still be well-matched to the data and thus provide a similar benefit. We now provide more thorough descriptions of our model development and validation procedures to demonstrate this point for the empirical analyses and include a section in the discussion to emphasize it. Finally, as demonstrated in our new supplemental analysis, exploring the role of missing data when total size of the dataset is kept constant, the model-based approaches are much better at maintaining accurate parameter estimates as missingness increases compared to others. Data deletion approaches and multiple imputation suffer from the disruption to the autoregressive nature of the time series while the model-based approaches are better able to account for them by directly incorporating the autoregressive nature of the data. It is true that this analysis again uses simulated data, meaning the model-based approaches use the true generative model, however for the reasons we give above, we believe this benefit would persist when these approaches use well-validated statistical models instead. The non-model-based missing data approaches, on the other hand, especially suffer because missing data in empirical settings results in both disrupted autoregressive structures and smaller datasets, both of which reduce those approaches' performance.}}
 
+\noindent \textcolor{blue}{\textit{Regarding the differing abilities of the missing data methods to cope with increased autocorrelation of missingness, we have added text to the discussion that addresses this phenomenon. In short, the model-based approaches (Kalman Filter and Data Augmentation for real-valued data, and Expectation Maximization for count data) are less impacted by autocorrelation in missing data than other methods, because they are built on the assumption of autoregressive structure in the time series. Data processing methods, on the other hand, do not have built in assumptions of autoregression and so are unable to properly estimate it when missing data disrupts the time series. That is why data processing approaches benefit from high autocorrelation in missingness because it means that, though there are longer gaps in the time series, there are also correspondingly longer stretches of intact data for those approaches to use in estimating the autoregressive parameter. We have now added text to the discussion to elaborate on this point (lines XXX).}}
+
+\bigskip 
 
 Line 332-334: Clarify that this study only addressed parameter estimation and forecast accuracy with missing data, not estimating the true value of missing data points. None of the methods tested can be expected to accurately recover the true missing values—rather, they estimate the expected values conditional on the observed data and the assumed model (see Carpenter et al. 2025 doi: 10.1111/2041-210X.14491).
 
-
-Response: 
-
+\noindent \textcolor{blue}{\textit{We thank the reviewer for this suggestion. It is correct that we are focused on the implications of missing data on downstream analysis and interpretation, rather than on imputation of missing data points as an end in and of itself. We added text to the discussion and introduction to emphasize this point (lines (XXX): "Multiple methods exist for dealing with missing data when fitting statistical models to a dataset..."; "Collectively, our comparison of missing data approaches provides a guide for dealing with missing data when fitting statistical models to ecological time series")}} 
 
 Line 380: It would be good to advise caution when applying these insights to real-world data where the underlying equations are often not known and there is significant observational noise (which was not addressed in this study).
 
-
-Response: 
-
+\noindent \textcolor{blue}{\textit{We thank the reviewer for emphasizing this point, and we have added text to the discussion to make the point clear that our suggestions must be applied within the context of good practices for model selection and validation (lines XXX).}}
 
 Figures
 
 Figure 1: Caption should be more descriptive, and should link to text describing data processing vs. model-based approaches (lines 64-73).
 
-
-Response: 
-
+\noindent \textcolor{blue}{\textit{We thank the reviewer for this suggestion, and have updated the figure caption to include more information about model-based vs. data processing approaches.}}
 
 Appendix S1
 
 Kalman Filter
-        Provide a general formula for forecasting Xi+1 from Xi, not just X1 from X0. From the current description, it seems like the variance vi of the forecast distribution will be the same for each i.
+Provide a general formula for forecasting Xi+1 from Xi, not just X1 from X0. From the current description, it seems like the variance vi of the forecast distribution will be the same for each i.
 
-        
-Response: 
-
+\noindent \textcolor{blue}{\textit{}} 
 
 You describe using the function ‘arima’ from the ‘stats’ R package, but that function does not handle missing values automatically. In your code you seem to be using the ‘Arima’ function from the ‘forecast’ package instead.
-
-
-Response: 
-
-
-
+ 
+\noindent \textcolor{blue}{\textit{We apologize for this source of confusion. Some code that used the forecast::Arima() function was retained in our GitHub repository. However, these functions are no longer used in our analyses, and that code has been archived. We use the stats::arima() function in all of our final analyses, so the description in the methods is accurate. The stats::arima() function actually does fill in missing values using the Kalman Filter, which is reflected in the documentation of the function from the stats R package (version 4.5.2)}}
 
 
 \end{document}
