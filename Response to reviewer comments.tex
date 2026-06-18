@@ -32,7 +32,7 @@
 \usepackage{times} % times new roman%
 \usepackage{lineno} % add line numbers%
 \begin{document}
-
+\begin{linenumbers}
 %\bigskip % Vertical whitespace
 
 \noindent Dear Dr. Kathy Cottingham and \textit{Ecology} Editorial Board,
@@ -111,7 +111,7 @@ I thought that the manuscript was mostly well written and that it represented co
 
 \noindent Second, I was not sure why they chose to discard low and high observations in their MNAR analyses. There didn’t really seem to be a justification presented for this.
 
-\noindent \textcolor{blue}{\textit{Thank you for pointing this out. We inadvertently omitted the reasoning for this decision but have now updated the methods to include it. Specifically we added the following text: ``These types of MNAR scenarios, where the value of the variable itself is related to its probability of missingness, often occur in sensor data similar to our GPP example. For example, ..." (Lines XXX)}}
+\noindent \textcolor{blue}{\textit{Thank you for pointing this out. We inadvertently omitted the reasoning for this decision but have now updated the methods to include it. Specifically we added the following text: ``These types of MNAR scenarios, where the value of the variable itself is related to its probability of missingness, often occur in sensor data similar to our GPP example. For example, sensors measuring flow in a river often fail to capture information about very low flow due to the placement of sensors in the stream bed, and can also fail to capture high flows because they are swept away or damaged by swift current" (Lines XXX)}}
 
 \bigskip
 
@@ -158,7 +158,7 @@ The methods and results section are formatted differently than I usually approac
 
 \bigskip
 
-4. Eqn 1a. It’s a little pedantic, but to complete the specification here the authors might consider providing the case for Y1, for which Yt−1 is undefined.
+4. Eqn 1a. It’s a little pedantic, but to complete the specification here the authors might consider providing the case for $Y_1$, for which  $Y_{t-1}$ is undefined.
 
 \noindent \textcolor{blue}{\textit{This is a good point and we have now updated this equation to include the specification of $Y_1$ for our simulations. We have similarly updated equation 2 to include a specification for $N_1$ in those simulations.}} 
 
@@ -297,7 +297,7 @@ Line 249: Include MNAR data figure similar to Appendix S1: Fig. S2 in supplement
 
 Lines 253-255/260-262: Explain patterns of bias for $\phi$, $\beta$, $r$, and $\alpha$ (e.g. why is the bias negative for $\phi$ and positive for $\beta$?), and why MNAR data shows more pronounced trends.
 
-\noindent \textcolor{blue}{\textit{We thank the reviewer for this suggestion and have now added text to further explain these patterns in bias. In short, $r$ and $\alpha$} display the patterns in bias they do because estimates of these parameters are known to correlate with each other when models do not have sufficient data to uniquely identify them. The model instead estimates combinations of $r$ and $\alpha$ that combine to yield the equivalent carrying capacity. We know demonstrate this in a supplemental figure and describe it briefly in our discussion (lines XXX). For the $\beta$ parameters, while the bias is technically positive overall, the scale is very low and in fact represents a bias that is very close to 0. We have now added some brief language emphasizing the quite low levels of bias and error in the $\beta$ estimates compared to the other parameters (lines XXX). Finally, our new, supplemental analysis helps demonstrate that the negative bias in $\phi$ estimates is due to a reduced ability to identify the autoregressive structure in the time series with increasingly fragmented data, thus producing underestimates of the autoregressive parameter. The data processing approaches are especially vulnerable to this as seen in our new supplemental figure. We have updated our discussion to elaborate on this point (lines XXX).}
+\noindent \textcolor{blue}{\textit{We thank the reviewer for this suggestion and have now added text to further explain these patterns in bias. In short, $r$ and $\alpha$} display the patterns in bias they do because estimates of these parameters are known to correlate with each other when models do not have sufficient data to uniquely identify them. The model instead estimates combinations of $r$ and $\alpha$ that combine to yield the equivalent carrying capacity. We now demonstrate this in a supplemental figure and describe it briefly in our discussion (lines XXX). For the $\beta$ parameters, while the bias is technically positive overall, the scale is very low and in fact represents a bias that is very close to 0. We have now added some brief language emphasizing the quite low levels of bias and error in the $\beta$ estimates compared to the other parameters (lines XXX). Finally, our new, supplemental analysis helps demonstrate that the negative bias in $\phi$ estimates is due to a reduced ability to identify the autoregressive structure in the time series with increasingly fragmented data, thus producing underestimates of the autoregressive parameter. The data processing approaches are especially vulnerable to this as seen in our new supplemental figure. We have updated our discussion to elaborate on this point (lines XXX).}
 
 Line 275-276: Discuss why RMSE changes little with high missingness in the MCAR data, and mention the baseline predictive performance of the AR(1) model.
 
@@ -350,5 +350,5 @@ You describe using the function ‘arima’ from the ‘stats’ R package, but 
  
 \noindent \textcolor{blue}{\textit{We apologize for this source of confusion. Some code that used the forecast::Arima() function was retained in our GitHub repository. However, these functions are no longer used in our analyses, and that code has been archived. We use the stats::arima() function in all of our final analyses, so the description in the methods is accurate. The stats::arima() function actually does fill in missing values using the Kalman Filter, which is reflected in the documentation of the function from the stats R package (version 4.5.2)}}
 
-
+\end{linenumbers}
 \end{document}
